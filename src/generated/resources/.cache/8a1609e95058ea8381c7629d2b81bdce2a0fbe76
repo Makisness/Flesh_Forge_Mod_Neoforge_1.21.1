@@ -1,0 +1,4 @@
+// 1.21.1	2024-10-08T23:35:41.8671506	Tags for minecraft:block mod id fleshforgemod
+9ac98e4bef5b1870b4f2c23adbbc4335a9a7f10b data/minecraft/tags/block/mineable/pickaxe.json
+dbf8fea3f2fdf6942607893ca6eeb26d0f1c5081 data/minecraft/tags/block/needs_diamond_tool.json
+5d9672c054eb556bead4685c0c4072633b971041 data/minecraft/tags/block/needs_iron_tool.json

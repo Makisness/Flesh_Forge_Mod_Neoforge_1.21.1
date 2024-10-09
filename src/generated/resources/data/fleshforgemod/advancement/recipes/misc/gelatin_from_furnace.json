@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_bucket_flesh": {
+      "conditions": {
+        "items": [
+          {
+            "items": "fleshforgemod:bucket_flesh"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "fleshforgemod:gelatin_from_furnace"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_bucket_flesh"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "fleshforgemod:gelatin_from_furnace"
+    ]
+  }
+}
