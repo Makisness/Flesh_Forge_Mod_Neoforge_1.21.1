@@ -1,0 +1,14 @@
+{
+  "item.fleshforgemod.bio_cpu": "Bio CPU",
+  "item.fleshforgemod.bucket_gelatin": "Bucket of Gelatin",
+  "item.fleshforgemod.bucket_flesh": "Bucket of Flesh",
+  "item.fleshforgemod.flesh_mass": "Flesh Mound",
+  "item.fleshforgemod.raw_bauxite": "Raw Bauxite",
+  "block.fleshforgemod.bauxite_ore": "Bauxite Ore",
+  "block.fleshforgemod.deepslate_bauxite_ore": "Deepslate Bauxite Ore",
+  "block.fleshforgemod.gem_polishing_station": "Flesh Generator",
+  "block.fleshforgemod.flesh_forge": "Flesh Forge",
+
+  "creativetab.fleshforgemod.flesh_forge_ingredients_tab": "Flesh Forge Ingredients",
+  "creativetab.fleshforgemod.flesh_forge_blocks_tab": "Flesh Forge Blocks"
+}
