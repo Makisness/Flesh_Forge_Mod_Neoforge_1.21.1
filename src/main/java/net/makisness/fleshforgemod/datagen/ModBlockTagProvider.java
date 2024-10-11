@@ -23,7 +23,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .add(ModBlocks.BAUXITE_ORE.get())
                 .add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get())
                 .add(ModBlocks.FLESH_FORGE.get())
-                .add(ModBlocks.GEM_POLISHING_STATION.get());
+                .add(ModBlocks.FLESH_GENERATOR.get());
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(ModBlocks.BAUXITE_ORE.get());
         tag(BlockTags.NEEDS_DIAMOND_TOOL)

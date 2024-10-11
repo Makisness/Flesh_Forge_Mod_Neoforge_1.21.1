@@ -28,7 +28,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     @Override
     protected void generate() {
 
-        dropSelf(ModBlocks.GEM_POLISHING_STATION.get());
+        dropSelf(ModBlocks.FLESH_GENERATOR.get());
         dropSelf(ModBlocks.FLESH_FORGE.get());
 
         add(ModBlocks.BAUXITE_ORE.get(),

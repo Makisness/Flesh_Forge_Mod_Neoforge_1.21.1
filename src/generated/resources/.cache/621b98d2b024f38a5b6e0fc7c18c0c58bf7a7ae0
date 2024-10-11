@@ -1,9 +1,11 @@
-// 1.21.1	2024-10-08T23:35:41.8681479	Block States: fleshforgemod
+// 1.21.1	2024-10-11T17:14:43.4091861	Block States: fleshforgemod
 33a42e4c09b132a8e158651d5f099fc2ba0434e3 assets/fleshforgemod/blockstates/bauxite_ore.json
 914d6fda0eb312182de729e7670f6554c13e486e assets/fleshforgemod/blockstates/deepslate_bauxite_ore.json
-920be589d453e7319e370cad98839cc95740037f assets/fleshforgemod/blockstates/flesh_forge.json
-b782f9514530b04cc96d52c76d24b78e3f28a3ad assets/fleshforgemod/blockstates/gem_polishing_station.json
+82b89fd692970c1489e591a499443c15b993bf51 assets/fleshforgemod/blockstates/flesh_forge.json
+8f54789902961a28ace39190d03c569bb94d1402 assets/fleshforgemod/blockstates/flesh_generator.json
 63c045e62b294c347e8ca198e4073f010d3093a4 assets/fleshforgemod/models/block/bauxite_ore.json
 bf26714a77bb2768012cf1c362cfe2d2cb5a1570 assets/fleshforgemod/models/block/deepslate_bauxite_ore.json
 a13b889d9898ef13773a848f208a587041f6ca0a assets/fleshforgemod/models/item/bauxite_ore.json
 8d25bed7127c645c97908869df2ad387c166aac4 assets/fleshforgemod/models/item/deepslate_bauxite_ore.json
+3c8c8ed772eaa84ac1e7bf17e88130308ab81499 assets/fleshforgemod/models/item/flesh_forge.json
+230f9d2e2f58221472449ef8379715cb8a888f0f assets/fleshforgemod/models/item/flesh_generator.json

@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "fleshforgemod:block/flesh_forge",
+      "y": 90
+    },
+    "facing=north": {
       "model": "fleshforgemod:block/flesh_forge"
+    },
+    "facing=south": {
+      "model": "fleshforgemod:block/flesh_forge",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "fleshforgemod:block/flesh_forge",
+      "y": 270
     }
   }
 }

@@ -1,5 +1,5 @@
-// 1.21.1	2024-10-08T23:35:41.8661546	Loot Tables
+// 1.21.1	2024-10-11T09:35:14.9213051	Loot Tables
 0ae40a48dc3ef02eb4739e78d43b29ce97c86176 data/fleshforgemod/loot_table/blocks/bauxite_ore.json
 1f73f1eaae1a3779c619fbc836c24181f163b924 data/fleshforgemod/loot_table/blocks/deepslate_bauxite_ore.json
 ef18c52799b7cd02401b3b902105c9540f10c105 data/fleshforgemod/loot_table/blocks/flesh_forge.json
-b8a7bc6a6d68b7951967a9797e6db9530d60453a data/fleshforgemod/loot_table/blocks/gem_polishing_station.json
+0729b14b6e3bd838a381e1c4f1a60eea1312373a data/fleshforgemod/loot_table/blocks/flesh_generator.json

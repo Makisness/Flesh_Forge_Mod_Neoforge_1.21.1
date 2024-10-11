@@ -35,7 +35,7 @@ public class ModCreativeTabs {
 
                         output.accept(ModBlocks.BAUXITE_ORE);
                         output.accept(ModBlocks.DEEPSLATE_BAUXITE_ORE);
-                        output.accept(ModBlocks.GEM_POLISHING_STATION);
+                        output.accept(ModBlocks.FLESH_GENERATOR);
                         output.accept(ModBlocks.FLESH_FORGE);
 
 
