@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "fleshforgemod:raw_bauxite"
+  },
+  "result": {
+    "count": 1,
+    "id": "fleshforgemod:aluminum_ingot"
+  }
+}

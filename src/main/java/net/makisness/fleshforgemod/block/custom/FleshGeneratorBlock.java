@@ -2,8 +2,9 @@ package net.makisness.fleshforgemod.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.makisness.fleshforgemod.block.entity.ModBlockEntities;
-import net.makisness.fleshforgemod.block.entity.custom.FleshForgeBlockEntity;
 import net.makisness.fleshforgemod.block.entity.custom.FleshGeneratorBlockEntity;
+import net.makisness.fleshforgemod.component.ModDataComponentTypes;
+import net.makisness.fleshforgemod.tools.CustomEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,7 +12,9 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -27,6 +30,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class FleshGeneratorBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -45,6 +50,7 @@ public class FleshGeneratorBlock extends BaseEntityBlock {
 
     @Override
     protected RenderShape getRenderShape(BlockState state) {
+
         return RenderShape.MODEL;
     }
 
@@ -63,7 +69,7 @@ public class FleshGeneratorBlock extends BaseEntityBlock {
         if(!level.isClientSide()) {
             BlockEntity entity = level.getBlockEntity(pos);
             if(entity instanceof FleshGeneratorBlockEntity fleshGeneratorBlockEntity){
-                ((ServerPlayer) player).openMenu(new SimpleMenuProvider(fleshGeneratorBlockEntity, Component.literal("FleshGenerator")),pos);
+                ((ServerPlayer) player).openMenu(new SimpleMenuProvider(fleshGeneratorBlockEntity, Component.literal("Flesh Generator")),pos);
 
             } else {
                 throw new IllegalStateException("Our container provider is missing!");
@@ -71,6 +77,28 @@ public class FleshGeneratorBlock extends BaseEntityBlock {
         }
         return ItemInteractionResult.sidedSuccess(level.isClientSide());
     }
+
+    @Override
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if(state.getBlock() != newState.getBlock()){
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if(blockEntity instanceof FleshGeneratorBlockEntity fleshGeneratorBlockEntity){
+
+                fleshGeneratorBlockEntity.drops();
+            }
+        }
+
+        super.onRemove(state, level, pos, newState, movedByPiston);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        if(stack.get(ModDataComponentTypes.ENERGY)!= null){
+            tooltipComponents.add(Component.literal(stack.get(ModDataComponentTypes.ENERGY) + " RF"));
+        }
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+    }
+
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
