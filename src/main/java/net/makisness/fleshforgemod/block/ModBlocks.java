@@ -30,7 +30,7 @@ public class ModBlocks {
                     BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
     public static final DeferredBlock<Block> FLESH_GENERATOR = registerBlock("flesh_generator",
-            ()-> new FleshGeneratorBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops()));
+            ()-> new FleshGeneratorBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops().noOcclusion()));
 
     public static final DeferredBlock<Block> FLESH_FORGE = registerBlock("flesh_forge",
             ()-> new FleshForgeBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops()));

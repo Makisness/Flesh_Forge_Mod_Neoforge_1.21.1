@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_raw_bauxite": {
+      "conditions": {
+        "items": [
+          {
+            "items": "fleshforgemod:raw_bauxite"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "fleshforgemod:aluminum_from_furnace"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_raw_bauxite"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "fleshforgemod:aluminum_from_furnace"
+    ]
+  }
+}
