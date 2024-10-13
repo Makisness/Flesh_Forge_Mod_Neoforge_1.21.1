@@ -1,9 +1,16 @@
 {
-  "type": "fleshforgemod:biofabricating",
-  "cookTime": 200,
-  "ingredient": {
-    "item": "fleshforgemod:flesh_mass"
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "fleshforgemod:flesh_mass"
+    }
   },
+  "pattern": [
+    "BBB",
+    "BBB",
+    "BBB"
+  ],
   "result": {
     "count": 1,
     "id": "fleshforgemod:bio_cpu"

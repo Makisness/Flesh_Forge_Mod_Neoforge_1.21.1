@@ -1,14 +1,17 @@
 package net.makisness.fleshforgemod.screen.custom;
 
 import net.makisness.fleshforgemod.block.ModBlocks;
+import net.makisness.fleshforgemod.block.entity.custom.FleshForgeBlockEntity;
 import net.makisness.fleshforgemod.block.entity.custom.FleshGeneratorBlockEntity;
 import net.makisness.fleshforgemod.screen.ModMenuTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import org.jetbrains.annotations.Nullable;
 
 import static net.makisness.fleshforgemod.block.entity.custom.FleshGeneratorBlockEntity.SLOT;
 import static net.makisness.fleshforgemod.block.entity.custom.FleshGeneratorBlockEntity.SLOT_COUNT;
@@ -17,37 +20,37 @@ public class FleshGeneratorMenu extends AbstractContainerMenu {
     private final BlockPos pos;
     private int power;
 
-
     public FleshGeneratorMenu(int containerId, Player player, BlockPos pos) {
-        super(ModMenuTypes.FLESH_GENERATOR_MENU.get(), containerId);
+        super(ModMenuTypes.FLESH_GENERATOR_MENU.get(),containerId);
         this.pos = pos;
-        if (player.level().getBlockEntity(pos) instanceof FleshGeneratorBlockEntity generator) {
-            addSlot(new SlotItemHandler(generator.getItems(), SLOT, 64, 24));
-            addDataSlot(new DataSlot() {
-                @Override
-                public int get() {
-                    return generator.getStoredPower() & 0xffff;
-                }
+        if(player.level().getBlockEntity(pos) instanceof FleshGeneratorBlockEntity fleshGeneratorBlockEntity){
+          addSlot(new SlotItemHandler(fleshGeneratorBlockEntity.getItems(), SLOT, 64, 24));
+          addDataSlot(new DataSlot() {
+              @Override
+              public int get() {
+                  return fleshGeneratorBlockEntity.getStoredPower() & 0xffff;
+              }
 
-                @Override
-                public void set(int pValue) {
-                    FleshGeneratorMenu.this.power = (FleshGeneratorMenu.this.power & 0xffff0000) | (pValue & 0xffff);
-                }
-            });
-            addDataSlot(new DataSlot() {
-                @Override
-                public int get() {
-                    return (generator.getStoredPower() >> 16) & 0xffff;
-                }
+              @Override
+              public void set(int value) {
+                FleshGeneratorMenu.this.power = (FleshGeneratorMenu.this.power & 0xffff) | ((value & 0xffff) << 16);
+              }
+          });
+          addDataSlot(new DataSlot() {
+              @Override
+              public int get() {
+                  return (fleshGeneratorBlockEntity.getStoredPower() >> 16) & 0xffff;
+              }
 
-                @Override
-                public void set(int pValue) {
-                    FleshGeneratorMenu.this.power = (FleshGeneratorMenu.this.power & 0xffff) | ((pValue & 0xffff) << 16);
-                }
-            });
+              @Override
+              public void set(int value) {
+                  FleshGeneratorMenu.this.power = (FleshGeneratorMenu.this.power & 0xffff) | ((value & 0xffff) << 16);
+              }
+          });
         }
         layoutPlayerInventorySlots(player.getInventory(), 10, 70);
     }
+
     public int getPower() {
         return power;
     }

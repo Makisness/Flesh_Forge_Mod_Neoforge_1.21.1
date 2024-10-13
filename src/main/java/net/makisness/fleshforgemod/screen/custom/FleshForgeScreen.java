@@ -15,7 +15,8 @@ public class FleshForgeScreen extends AbstractContainerScreen<FleshForgeMenu> {
             ResourceLocation.fromNamespaceAndPath(fleshforgemod.MODID,"textures/gui/flesh_forge/crystallizer_gui.png");
     private static final ResourceLocation ARROW_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(fleshforgemod.MODID,"textures/gui/flesh_forge/arrow_progress.png");
-
+    private static final ResourceLocation CRYSTAL_TEXTURE =
+            ResourceLocation.parse("textures/block/amethyst_cluster.png");
 
 
 
@@ -42,7 +43,7 @@ public class FleshForgeScreen extends AbstractContainerScreen<FleshForgeMenu> {
 
         guiGraphics.blit(GUI_TEXTURE, x, y,0,0, imageWidth, imageHeight);
         renderProgressArrow(guiGraphics, x, y);
-
+        renderProgressCrystal(guiGraphics, x, y);
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y){
@@ -50,7 +51,12 @@ public class FleshForgeScreen extends AbstractContainerScreen<FleshForgeMenu> {
             guiGraphics.blit(ARROW_TEXTURE,x + 73,y + 35,0,0, menu.getScaledArrowProgress(),16,24,16);
         }
     }
-
+    private void renderProgressCrystal(GuiGraphics guiGraphics, int x, int y){
+        if(menu.isCrafting()){
+            guiGraphics.blit(CRYSTAL_TEXTURE,x + 104, y + 13 + 16 - menu.getScaledCrystalProgress(), 0,
+                    16 - menu.getScaledCrystalProgress(), 16, menu.getScaledCrystalProgress(), 16, 16);
+        }
+    }
 
 
 

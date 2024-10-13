@@ -25,12 +25,11 @@ public class ModCreativeTabs {
                         output.accept(ModItems.RAW_BAUXITE);
                         output.accept(ModItems.BUCKET_FLESH);
                         output.accept(ModItems.BUCKET_GELATIN);
-                        output.accept(ModItems.ROUND_KNIFE);
 
                     }).build());
 
     public static final Supplier<CreativeModeTab> Flesh_Forge_Blocks_Tab = Creative_MODE_TAB.register("flesh_forge_blocks_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.FLESH_FORGE.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.BAUXITE_ORE.get()))
                     .title(Component.translatable("creativetab.fleshforgemod.flesh_forge_blocks_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
 

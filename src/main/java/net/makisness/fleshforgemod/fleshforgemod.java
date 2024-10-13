@@ -2,19 +2,15 @@ package net.makisness.fleshforgemod;
 
 import net.makisness.fleshforgemod.block.ModBlocks;
 import net.makisness.fleshforgemod.block.entity.ModBlockEntities;
-import net.makisness.fleshforgemod.component.ModDataComponentTypes;
 import net.makisness.fleshforgemod.item.ModCreativeTabs;
 import net.makisness.fleshforgemod.item.ModItems;
-import net.makisness.fleshforgemod.recipe.ModRecipes;
 import net.makisness.fleshforgemod.screen.ModMenuTypes;
 import net.makisness.fleshforgemod.screen.custom.FleshForgeScreen;
 import net.makisness.fleshforgemod.screen.custom.FleshGeneratorScreen;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ItemSteerable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -22,7 +18,6 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
-import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -73,9 +68,6 @@ public class fleshforgemod
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
-        ModDataComponentTypes.register(modEventBus);
-        ModRecipes.register(modEventBus);
-
 
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
@@ -121,6 +113,8 @@ public class fleshforgemod
             event.register(ModMenuTypes.FLESH_FORGE_MENU.get(), FleshForgeScreen::new);
             event.register(ModMenuTypes.FLESH_GENERATOR_MENU.get(), FleshGeneratorScreen::new);
         }
+
+
 
     }
 

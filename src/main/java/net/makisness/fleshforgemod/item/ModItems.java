@@ -2,7 +2,6 @@ package net.makisness.fleshforgemod.item;
 
 import net.makisness.fleshforgemod.fleshforgemod;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -20,10 +19,7 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> BUCKET_GELATIN = ITEMS.register("bucket_gelatin",
             () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> ROUND_KNIFE = ITEMS.register("round_knife",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> ALUMINUM_INGOT = ITEMS.register("aluminum_ingot",
-            () -> new Item(new Item.Properties()));
+
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);

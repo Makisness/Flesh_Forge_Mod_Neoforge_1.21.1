@@ -2,9 +2,6 @@ package net.makisness.fleshforgemod.block.entity.custom;
 
 import net.makisness.fleshforgemod.block.entity.ModBlockEntities;
 import net.makisness.fleshforgemod.item.ModItems;
-import net.makisness.fleshforgemod.recipe.FleshForgeRecipe;
-import net.makisness.fleshforgemod.recipe.FleshForgeRecipeInput;
-import net.makisness.fleshforgemod.recipe.ModRecipes;
 import net.makisness.fleshforgemod.screen.custom.FleshForgeMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -21,16 +18,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Optional;
 
 public class FleshForgeBlockEntity extends BlockEntity implements MenuProvider {
     public final ItemStackHandler itemHandler = new ItemStackHandler(4){
@@ -47,7 +40,6 @@ public class FleshForgeBlockEntity extends BlockEntity implements MenuProvider {
     private static final int INPUT_SLOT = 1;
     private static final int OUTPUT_SLOT = 2;
     private static final int ENERGY_ITEM_SLOT = 3;
-
 
     private final ContainerData data;
     private int progress = 0;
@@ -135,8 +127,7 @@ public class FleshForgeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private void craftItem() {
-        Optional<RecipeHolder<FleshForgeRecipe>> recipe = getCurrentRecipe();
-        ItemStack output = recipe.get().value().output();
+        ItemStack output = new ItemStack(ModItems.BIO_CPU.get());
 
         itemHandler.extractItem(INPUT_SLOT, 1, false);
         itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(output.getItem(),
@@ -157,23 +148,12 @@ public class FleshForgeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private boolean hasRecipe() {
-        Optional<RecipeHolder<FleshForgeRecipe>> recipe = getCurrentRecipe();
-        if(recipe.isEmpty()){
-            return false;
-        }
-        ItemStack output = recipe.get().value().output();
-        maxProgress = recipe.get().value().cookTime();
-        return canInsertAmountIntoOutputSlot(output.getCount()) && canInsertItemIntoOutputSlot(output);
-    }
+        ItemStack input = new ItemStack(ModItems.FLESH_MASS.get());
+        ItemStack output = new ItemStack(ModItems.BIO_CPU.get());
 
-    private Optional<RecipeHolder<FleshForgeRecipe>> getCurrentRecipe() {
-        return this.level.getRecipeManager()
-                .getRecipeFor(ModRecipes.FLESHFORGE_TYPE.get(),new FleshForgeRecipeInput(itemHandler.getStackInSlot(INPUT_SLOT)), level);
+        return canInsertAmountIntoOutputSlot(output.getCount()) && canInsertItemIntoOutputSlot(output) &&
+                this.itemHandler.getStackInSlot(INPUT_SLOT).getItem() == input.getItem();
     }
-    private int getCookTime() {
-        return getCurrentRecipe().get().value().cookTime();
-    }
-
 
     private boolean canInsertItemIntoOutputSlot(ItemStack output) {
         return itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() ||
