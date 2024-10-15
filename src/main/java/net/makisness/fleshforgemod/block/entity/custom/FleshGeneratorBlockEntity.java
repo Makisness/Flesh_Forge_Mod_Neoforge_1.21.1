@@ -1,9 +1,9 @@
 package net.makisness.fleshforgemod.block.entity.custom;
 
+import net.makisness.fleshforgemod.block.ModBlocks;
 import net.makisness.fleshforgemod.block.entity.ModBlockEntities;
 import net.makisness.fleshforgemod.component.ModDataComponentTypes;
-import net.makisness.fleshforgemod.item.ModItems;
-import net.makisness.fleshforgemod.screen.custom.FleshForgeMenu;
+import net.makisness.fleshforgemod.fleshforgemod;
 import net.makisness.fleshforgemod.screen.custom.FleshGeneratorMenu;
 import net.makisness.fleshforgemod.tools.AdaptedEnergyStorage;
 import net.makisness.fleshforgemod.tools.CustomEnergyStorage;
@@ -16,32 +16,28 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.capabilities.EntityCapability;
 import net.neoforged.neoforge.common.util.Lazy;
-import net.neoforged.neoforge.energy.EnergyStorage;
 import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import snownee.jade.addon.universal.EnergyStorageProvider;
 
 public class FleshGeneratorBlockEntity extends BlockEntity implements MenuProvider {
 
@@ -136,17 +132,13 @@ public class FleshGeneratorBlockEntity extends BlockEntity implements MenuProvid
             if (hasNutrition(itemStack)) {
                 if (hasSaturation(itemStack)) {
                     int fuelNutrition = itemStack.getFoodProperties(null).nutrition();
-                    System.out.println(itemStack.getFoodProperties(null).nutrition()+" : Nutrition");
                     float fuelSaturation = itemStack.getFoodProperties(null).saturation();
-                    System.out.println(itemStack.getFoodProperties(null).saturation()+" : Saturation");
                     foodBurnTime = fuelNutrition * diminishingReturns(fuelSaturation,5) * FUEL_ENERGY_BALANCE;
-                    System.out.println("NEW SATURATION: " + diminishingReturns(fuelSaturation,5));
-                    System.out.println("FOOD TO FUEL - BURN TIME: " + ((int) foodBurnTime) + "- FOOD: " + itemStack.getDisplayName().getString());
                     return ((int) foodBurnTime);
                 }
             }
         }else{
-        System.out.println("NOT A FOOD");
+            return 0;
         }
         return ((int) foodBurnTime);
     }
@@ -164,17 +156,14 @@ public class FleshGeneratorBlockEntity extends BlockEntity implements MenuProvid
 
 
     private static boolean hasSaturation(ItemStack itemStack) {
-        System.out.println("Has Saturation");
         return itemStack.getFoodProperties(null).saturation() != 0;
     }
 
     private static boolean hasNutrition(ItemStack itemStack) {
-        System.out.println("Has Nutrition");
         return itemStack.getFoodProperties(null).nutrition() != 0;
     }
 
     private static boolean isFood(ItemStack itemStack) {
-        System.out.println("Food Added");
         return itemStack.getFoodProperties(null)!= null;
     }
 
@@ -191,17 +180,64 @@ public class FleshGeneratorBlockEntity extends BlockEntity implements MenuProvid
 
     }
 
-    private void distributeEnergy(){
-        for(Direction direction : Direction.values()){
-            if(energy.getEnergyStored()<-0){
+//    private void distributeEnergy(){
+//        for(Direction direction : Direction.values()){
+//            if(energy.getEnergyStored() <= 0){
+//                return;
+//            }
+
+//            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK,getBlockPos().relative(direction),null);
+//
+//
+//            System.out.println("Block: " + level.getBlockState(getBlockPos().relative(direction)).getBlock().getName().getString());
+//            System.out.println("Can Accept Energy: " + energyStorage.canReceive());
+//            System.out.println("Has Energy: " + energyStorage.getEnergyStored());
+//            assert level != null;
+//            IEnergyStorage energy = level.getCapability(Capabilities.EnergyStorage.BLOCK, getBlockPos().relative(direction),null);
+//            System.out.println("NULL ENERGY:  " + energy);
+//            if(energy != null && energy.canReceive()){
+//                    System.out.println("CAN RECIEVE ENERGER");
+//                    int received = energy.receiveEnergy(Math.min(this.energy.getEnergyStored(),MAX_TRANSFER),false);
+//                    this.energy.extractEnergy(received,false);
+//                    System.out.println("Energy Received by Neighbor: " + received);
+   //                 setChanged();
+//            }
+//
+//}
+//    private void distributeEnergy() {
+//        // Check all sides of the block and send energy if that block supports the energy capability
+//        for (Direction direction : Direction.values()) {
+//    //            if (energy.getEnergyStored() <= 0) {
+//    //                return;
+//    //            }
+//            System.out.println("Direction: " + direction + " | Block: " + level.getBlockState(getBlockPos().relative(direction)).getBlock().getName().getString());
+//            System.out.println("Direction: " + direction + " | Entity: " + level.getBlockEntity(getBlockPos().relative(direction)));
+//            System.out.println("Direction: " + direction + " | Energy: " + level.getCapability(Capabilities.EnergyStorage.BLOCK,getBlockPos().relative(direction),level.getBlockState(getBlockPos().relative(direction)),level.getBlockEntity(getBlockPos().relative(direction)),null));
+//
+//        }
+//    }
+
+
+    public void distributeEnergy() {
+        for (Direction direction : Direction.values()) {
+            if (energy.getEnergyStored() <= 0) {
+                System.out.println("No energy to distribute.");
                 return;
             }
-            IEnergyStorage energy = level.getCapability(Capabilities.EnergyStorage.BLOCK,getBlockPos().relative(direction),null);
-            if(energy != null){
-                if(energy.canReceive()){
-                    int received = energy.receiveEnergy(Math.min(this.energy.getEnergyStored(),MAX_TRANSFER),false);
-                    this.energy.extractEnergy(received,false);
-                    setChanged();
+            BlockEntity adjacentEntity = level.getBlockEntity(getBlockPos().relative(direction));
+            System.out.println("Checking adjacent block at direction: " + direction + " | Block Entity: " + adjacentEntity);
+            if (adjacentEntity != null) {
+                IEnergyStorage energy = level.getCapability(Capabilities.EnergyStorage.BLOCK, getBlockPos().relative(direction),null);
+                if (energy != null) {
+                    System.out.println("Energy capability found for adjacent block at direction: " + direction);
+                    if (energy.canReceive()) {
+                        int energyTransferred = energy.receiveEnergy(Math.min(energy.getEnergyStored(), 1000), false);
+                        energy.extractEnergy(energyTransferred, false);
+                        setChanged();
+                        System.out.println("Transferred " + energyTransferred + " energy to adjacent block at direction: " + direction);
+                    }
+                } else {
+                    System.out.println("No energy capability found for adjacent block at direction: " + direction);
                 }
             }
         }
@@ -216,6 +252,10 @@ public class FleshGeneratorBlockEntity extends BlockEntity implements MenuProvid
         return energy.getEnergyStored();
     }
 
+    public int getMaxStoredPower(){
+        return energy.getMaxEnergyStored();
+    }
+
     @Override
     protected void collectImplicitComponents(DataComponentMap.Builder components) {
         super.collectImplicitComponents(components);
@@ -224,7 +264,6 @@ public class FleshGeneratorBlockEntity extends BlockEntity implements MenuProvid
             components.set(ModDataComponentTypes.ENERGY.get(), this.energy.getEnergyStored());
         }
     }
-
 
     @Override
     protected void applyImplicitComponents(DataComponentInput componentInput) {
@@ -239,8 +278,6 @@ public class FleshGeneratorBlockEntity extends BlockEntity implements MenuProvid
         tag.putInt("BurnTimeLeft", burnTime);
         super.saveAdditional(tag, registries);
     }
-
-
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
@@ -296,5 +333,23 @@ public class FleshGeneratorBlockEntity extends BlockEntity implements MenuProvid
     public IEnergyStorage getEnergyHandler(){
         return energyHandler.get();
     }
+
+    public int getBurnTimePassed() {
+        return burnTime - getMaxBurnTime();
+    }
+
+    public int getMaxBurnTime() {
+        return foodToFuel(items.getStackInSlot(SLOT));
+    }
+    public boolean isInventoryEmpty() {
+        return items.getStackInSlot(0).isEmpty();
+    }
+
+    public ItemStack getItem(int slot) {
+        return items.getStackInSlot(slot);
+    }
+
+    public static final BlockCapability<IEnergyStorage, @Nullable Direction> BLOCK = BlockCapability.createSided(ResourceLocation.fromNamespaceAndPath(fleshforgemod.MODID, "energy_handler"), IEnergyStorage.class);
+    public static final EntityCapability<IEnergyStorage, @Nullable Direction> ENTITY = EntityCapability.createSided(ResourceLocation.fromNamespaceAndPath(fleshforgemod.MODID, "energy_handler"), IEnergyStorage.class);
 }
 

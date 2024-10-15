@@ -25,6 +25,9 @@ public class ModDataComponentTypes {
     public static Supplier<DataComponentType<Integer>> ENERGY = register("energy",
             builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
 
+    public static Supplier<DataComponentType<Integer>> FLESH_FORGE_PROGRESS = register("flesh_forge_progress",
+            builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
+
 
     private static <T>DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator){
         return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());

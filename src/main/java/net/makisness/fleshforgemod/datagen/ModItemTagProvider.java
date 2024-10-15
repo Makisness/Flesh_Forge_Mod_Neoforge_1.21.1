@@ -20,9 +20,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(ModTags.Items.TRANSFORMABLE_ITEMS)
-                .add(ModItems.RAW_BAUXITE.get())
-                .add(ModItems.BIO_CPU.get())
-                .add(ModItems.FLESH_MASS.get());
+        tag(ModTags.Items.TRANSFORMABLE_ITEMS);
     }
 }

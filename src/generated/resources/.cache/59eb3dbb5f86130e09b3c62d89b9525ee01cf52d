@@ -1,5 +1,6 @@
-// 1.21.1	2024-10-12T15:26:17.8814879	Loot Tables
+// 1.21.1	2024-10-14T19:35:14.5787696	Loot Tables
 0ae40a48dc3ef02eb4739e78d43b29ce97c86176 data/fleshforgemod/loot_table/blocks/bauxite_ore.json
 1f73f1eaae1a3779c619fbc836c24181f163b924 data/fleshforgemod/loot_table/blocks/deepslate_bauxite_ore.json
-ef18c52799b7cd02401b3b902105c9540f10c105 data/fleshforgemod/loot_table/blocks/flesh_forge.json
+40efc663ba9c440b04ec89905e1c830605bc5847 data/fleshforgemod/loot_table/blocks/flesh_forge.json
 0856dd1c55fc2f6cec119e0b19d1ab813464aaf4 data/fleshforgemod/loot_table/blocks/flesh_generator.json
+f83c9b2db014078dc212b7f8209be425e88deebc data/fleshforgemod/loot_table/blocks/test_block.json

@@ -5,6 +5,7 @@ import net.makisness.fleshforgemod.fleshforgemod;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -20,6 +21,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         blockWithItem(ModBlocks.BAUXITE_ORE);
         blockWithItem(ModBlocks.DEEPSLATE_BAUXITE_ORE);
+        blockWithItem(ModBlocks.TEST_BLOCK);
 
         horizontalBlock(ModBlocks.FLESH_GENERATOR.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/flesh_generator"))); {
@@ -29,6 +31,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
         blockItem(ModBlocks.FLESH_FORGE);
         blockItem(ModBlocks.FLESH_GENERATOR);
+        blockItem(ModBlocks.TEST_BLOCK);
         }
 
     private void blockWithItem(DeferredBlock<?> deferredBlock){

@@ -11,6 +11,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "fleshforgemod:energy"
+              ],
+              "source": "block_entity"
+            }
+          ],
           "name": "fleshforgemod:flesh_forge"
         }
       ],

@@ -34,8 +34,10 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
     @Override
     protected void generate() {
 
+        dropSelf(ModBlocks.TEST_BLOCK.get());
 
-        dropSelf(ModBlocks.FLESH_FORGE.get());
+        add(ModBlocks.FLESH_FORGE.get(),
+                block -> createStoredPower(ModBlocks.FLESH_FORGE.get()));
 
         add(ModBlocks.FLESH_GENERATOR.get(),
                 block -> createStoredPower(ModBlocks.FLESH_GENERATOR.get()));

@@ -10,10 +10,21 @@
   "block.fleshforgemod.deepslate_bauxite_ore": "Deepslate Bauxite Ore",
   "block.fleshforgemod.flesh_generator": "Flesh Generator",
   "block.fleshforgemod.flesh_forge": "Flesh Forge",
+  "block.fleshforgemod.test_block": "Test Block",
 
   "blockEntity.fleshforgemod.flesh_forge": "Flesh Forge",
   "blockEntity.fleshforgemod.flesh_generator": "Flesh Generator",
 
   "creativetab.fleshforgemod.flesh_forge_ingredients_tab": "Flesh Forge Ingredients",
-  "creativetab.fleshforgemod.flesh_forge_blocks_tab": "Flesh Forge Blocks"
+  "creativetab.fleshforgemod.flesh_forge_blocks_tab": "Flesh Forge Blocks",
+
+
+  "config.jade.plugin_fleshforgemod.generator": "Flesh Generator",
+  "tooltip.waila.generator.energy": "%s / %s ATP",
+  "tooltip.waila.test.energy": "%s / %s ATP",
+  "tooltip.waila.flesh_forge.energy": "%s / %s ATP",
+
+  "config.jade.plugin_fleshforgemod.testblock": "IM GOING TO FIGURE OUT WHAT THIS IS",
+  "config.jade.plugin_fleshforgemod.flesh_forge": "IM  NOT SURE WHAT THIS IS AGAIN"
+
 }

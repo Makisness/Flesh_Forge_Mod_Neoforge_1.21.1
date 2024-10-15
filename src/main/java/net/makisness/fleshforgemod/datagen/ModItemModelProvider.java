@@ -19,6 +19,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.BUCKET_FLESH.get());
         basicItem(ModItems.BUCKET_GELATIN.get());
         basicItem(ModItems.ROUND_KNIFE.get());
+        basicItem(ModItems.ALUMINUM_INGOT.get());
+
 
     }
 }

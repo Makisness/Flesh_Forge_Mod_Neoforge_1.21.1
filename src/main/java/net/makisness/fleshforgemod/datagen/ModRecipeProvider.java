@@ -39,6 +39,13 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_bone", has(Items.BONE))
                 .save(recipeOutput);
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,ModItems.FLESH_MASS.get(),1)
+                .requires(Items.DIAMOND_SWORD)
+                .requires(Items.ROTTEN_FLESH)
+                .unlockedBy("has_rotten_flesh", has(Items.WATER_BUCKET))
+                .unlockedBy("has_diamond_sword", has(Items.DIAMOND_SWORD))
+                .save(recipeOutput);
+
         SimpleCookingRecipeBuilder.smelting(
                 Ingredient.of(ModItems.BUCKET_FLESH),
                 RecipeCategory.MISC, ModItems.BUCKET_GELATIN,

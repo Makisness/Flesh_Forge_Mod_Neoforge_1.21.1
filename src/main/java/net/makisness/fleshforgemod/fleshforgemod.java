@@ -98,6 +98,8 @@ public class fleshforgemod
     private void registerCapabilities(RegisterCapabilitiesEvent event){
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.FLESH_GENERATOR_BE.get(), (o, direction) -> o.getItemHandler());
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.FLESH_GENERATOR_BE.get(), (o, direction) -> o.getEnergyHandler());
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.FLESH_FORGE_BE.get(),(o, direction) -> o.getEnergyHandler());
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.TEST_BLOCK_ENTITY.get(),(o, direction) -> o.getEnergyHandler());
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
