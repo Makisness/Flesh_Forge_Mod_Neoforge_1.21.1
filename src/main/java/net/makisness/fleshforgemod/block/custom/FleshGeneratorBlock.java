@@ -94,7 +94,7 @@ public class FleshGeneratorBlock extends BaseEntityBlock {
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         if(stack.get(ModDataComponentTypes.ENERGY)!= null){
-            tooltipComponents.add(Component.literal(stack.get(ModDataComponentTypes.ENERGY) + " RF"));
+            tooltipComponents.add(Component.literal(stack.get(ModDataComponentTypes.ENERGY) + " ATP"));
         }
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }

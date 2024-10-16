@@ -3,6 +3,7 @@ package net.makisness.fleshforgemod.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.makisness.fleshforgemod.block.entity.ModBlockEntities;
 import net.makisness.fleshforgemod.block.entity.custom.FleshForgeBlockEntity;
+import net.makisness.fleshforgemod.component.ModDataComponentTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -81,6 +82,13 @@ public class FleshForgeBlock extends BaseEntityBlock {
             super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        if(stack.get(ModDataComponentTypes.ENERGY)!= null){
+            tooltipComponents.add(Component.literal(stack.get(ModDataComponentTypes.ENERGY) + " ATP"));
+        }
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+    }
 
 
     @Override

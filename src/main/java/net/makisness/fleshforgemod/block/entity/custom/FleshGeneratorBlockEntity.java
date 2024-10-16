@@ -180,69 +180,22 @@ public class FleshGeneratorBlockEntity extends BlockEntity implements MenuProvid
 
     }
 
-//    private void distributeEnergy(){
-//        for(Direction direction : Direction.values()){
-//            if(energy.getEnergyStored() <= 0){
-//                return;
-//            }
-
-//            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK,getBlockPos().relative(direction),null);
-//
-//
-//            System.out.println("Block: " + level.getBlockState(getBlockPos().relative(direction)).getBlock().getName().getString());
-//            System.out.println("Can Accept Energy: " + energyStorage.canReceive());
-//            System.out.println("Has Energy: " + energyStorage.getEnergyStored());
-//            assert level != null;
-//            IEnergyStorage energy = level.getCapability(Capabilities.EnergyStorage.BLOCK, getBlockPos().relative(direction),null);
-//            System.out.println("NULL ENERGY:  " + energy);
-//            if(energy != null && energy.canReceive()){
-//                    System.out.println("CAN RECIEVE ENERGER");
-//                    int received = energy.receiveEnergy(Math.min(this.energy.getEnergyStored(),MAX_TRANSFER),false);
-//                    this.energy.extractEnergy(received,false);
-//                    System.out.println("Energy Received by Neighbor: " + received);
-   //                 setChanged();
-//            }
-//
-//}
-//    private void distributeEnergy() {
-//        // Check all sides of the block and send energy if that block supports the energy capability
-//        for (Direction direction : Direction.values()) {
-//    //            if (energy.getEnergyStored() <= 0) {
-//    //                return;
-//    //            }
-//            System.out.println("Direction: " + direction + " | Block: " + level.getBlockState(getBlockPos().relative(direction)).getBlock().getName().getString());
-//            System.out.println("Direction: " + direction + " | Entity: " + level.getBlockEntity(getBlockPos().relative(direction)));
-//            System.out.println("Direction: " + direction + " | Energy: " + level.getCapability(Capabilities.EnergyStorage.BLOCK,getBlockPos().relative(direction),level.getBlockState(getBlockPos().relative(direction)),level.getBlockEntity(getBlockPos().relative(direction)),null));
-//
-//        }
-//    }
-
-
-    public void distributeEnergy() {
+    private void distributeEnergy () {
         for (Direction direction : Direction.values()) {
             if (energy.getEnergyStored() <= 0) {
-                System.out.println("No energy to distribute.");
                 return;
             }
-            BlockEntity adjacentEntity = level.getBlockEntity(getBlockPos().relative(direction));
-            System.out.println("Checking adjacent block at direction: " + direction + " | Block Entity: " + adjacentEntity);
-            if (adjacentEntity != null) {
-                IEnergyStorage energy = level.getCapability(Capabilities.EnergyStorage.BLOCK, getBlockPos().relative(direction),null);
-                if (energy != null) {
-                    System.out.println("Energy capability found for adjacent block at direction: " + direction);
-                    if (energy.canReceive()) {
-                        int energyTransferred = energy.receiveEnergy(Math.min(energy.getEnergyStored(), 1000), false);
-                        energy.extractEnergy(energyTransferred, false);
-                        setChanged();
-                        System.out.println("Transferred " + energyTransferred + " energy to adjacent block at direction: " + direction);
-                    }
-                } else {
-                    System.out.println("No energy capability found for adjacent block at direction: " + direction);
+            assert level != null;
+            IEnergyStorage energy = level.getCapability(Capabilities.EnergyStorage.BLOCK, getBlockPos().relative(direction), direction.getOpposite());
+            if (energy != null) {
+                if (energy.canReceive()) {
+                    int received = energy.receiveEnergy(Math.min(this.energy.getEnergyStored(),MAX_TRANSFER),false);
+                    this.energy.extractEnergy(received,false);
+                    setChanged();
                 }
             }
         }
     }
-
 
     public ItemStackHandler getItems(){
         return items;
@@ -278,7 +231,6 @@ public class FleshGeneratorBlockEntity extends BlockEntity implements MenuProvid
         tag.putInt("BurnTimeLeft", burnTime);
         super.saveAdditional(tag, registries);
     }
-
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
@@ -349,7 +301,7 @@ public class FleshGeneratorBlockEntity extends BlockEntity implements MenuProvid
         return items.getStackInSlot(slot);
     }
 
-    public static final BlockCapability<IEnergyStorage, @Nullable Direction> BLOCK = BlockCapability.createSided(ResourceLocation.fromNamespaceAndPath(fleshforgemod.MODID, "energy_handler"), IEnergyStorage.class);
-    public static final EntityCapability<IEnergyStorage, @Nullable Direction> ENTITY = EntityCapability.createSided(ResourceLocation.fromNamespaceAndPath(fleshforgemod.MODID, "energy_handler"), IEnergyStorage.class);
+   // public static final BlockCapability<IEnergyStorage, @Nullable Direction> BLOCK = BlockCapability.createSided(ResourceLocation.fromNamespaceAndPath(fleshforgemod.MODID, "energy_handler"), IEnergyStorage.class);
+  //  public static final EntityCapability<IEnergyStorage, @Nullable Direction> ENTITY = EntityCapability.createSided(ResourceLocation.fromNamespaceAndPath(fleshforgemod.MODID, "energy_handler"), IEnergyStorage.class);
 }
 

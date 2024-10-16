@@ -23,6 +23,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.LootTableLoadEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDropsEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -77,6 +78,9 @@ public class fleshforgemod
         ModRecipes.register(modEventBus);
 
 
+        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::registerCapabilities);
+
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -98,9 +102,7 @@ public class fleshforgemod
     private void registerCapabilities(RegisterCapabilitiesEvent event){
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.FLESH_GENERATOR_BE.get(), (o, direction) -> o.getItemHandler());
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.FLESH_GENERATOR_BE.get(), (o, direction) -> o.getEnergyHandler());
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.FLESH_FORGE_BE.get(),(o, direction) -> o.getEnergyHandler());
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.TEST_BLOCK_ENTITY.get(),(o, direction) -> o.getEnergyHandler());
-    }
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.FLESH_FORGE_BE.get(),(o, direction) -> o.getEnergyHandler());}
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
@@ -127,16 +129,16 @@ public class fleshforgemod
     }
 
     @EventBusSubscriber(modid = MODID)
-    public class MobDropHandler{
+    public static class MobDropHandler{
         private static final Random RANDOM = new Random();
         @SubscribeEvent
         public static void onMobDrops(LivingDropsEvent event){
             LivingEntity entity = event.getEntity();
 
-            double hostiledropChance = 0.7;
-            double passivedropChance = 0.3;
+            float hostiledropChance = 0.7f;
+            float passivedropChance = 0.3f;
 
-            double dropChance = entity.getType().getCategory() == MobCategory.MONSTER ? hostiledropChance : passivedropChance;
+            float dropChance = entity.getType().getCategory() == MobCategory.MONSTER ? hostiledropChance : passivedropChance;
 
             if(RANDOM.nextDouble()<dropChance) {
                 ItemStack customItemStack = new ItemStack(ModItems.FLESH_MASS.get());

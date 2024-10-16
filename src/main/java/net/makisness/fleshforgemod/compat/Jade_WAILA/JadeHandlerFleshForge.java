@@ -27,86 +27,65 @@ public class JadeHandlerFleshForge implements IBlockComponentProvider, IServerDa
 
     @Override
     public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
-        int energy = blockAccessor.getServerData().getInt("energy");
-        int maxEnergy = blockAccessor.getServerData().getInt("max_energy");
-        //int fluid = blockAccessor.getServerData().getInt("fluid");
-        //int maxFluid = blockAccessor.getServerData().getInt("max_fluid");
+        //I WROTE ALL OF THIS BEFORE PROPERLY REGISTERING MY BLOCKS ONLY TO FIND OUT THIS CODE WAS REDUNDANT BECAUSE MOST IF IT IS HANDLED BY DEFAULT...
+        //IM TOO ATTACHED NOW TO THROW IT AWAY. IT WILL REST HERE FOR NOW IN THE COMMENT GRAVEYARD.
 
-        //iTooltip.add(Component.translatable("tooltip.waila.generator.energy", energy, maxEnergy));
-        //iTooltip.add(Component.translatable("tooltip.waila.generator.fluid", fluid, maxFluid));
-
-//        int barLength = 30; // Adjust for the length of the bar
-//        int fillLength = (int) (((float) energy / maxEnergy) * barLength);
-//        String filledPart = "|".repeat(fillLength);
-//        Component filledComponent = Component.literal(filledPart).withStyle(style -> style.withColor(0xAA0000)); // Red color
+//        int energy = blockAccessor.getServerData().getInt("energy");
+//        int maxEnergy = blockAccessor.getServerData().getInt("max_energy");
 //
-//        // Create the empty part of the bar (in white)
-//        String emptyPart = "|".repeat(barLength - fillLength);
-//        Component emptyComponent = Component.literal(emptyPart).withStyle(style -> style.withColor(0xFFFFFF)); // White color
+//        CompoundTag data = blockAccessor.getServerData();
+//        if (data.contains("progress")) {
+//            int progress = data.getInt("progress");
+//            ListTag forgeItems = data.getList("forge", 10);
+//            NonNullList<ItemStack> inventory = NonNullList.withSize(4, ItemStack.EMPTY);
 //
-//        // Combine both parts into a single Component
-//        iTooltip.add(Component.literal("[").append(filledComponent).append(emptyComponent).append(Component.literal("]")));
+//            for (int i = 0; i < forgeItems.size(); ++i) {
+//                inventory.set(i, ItemStack.parseOptional(blockAccessor.getLevel().registryAccess(), forgeItems.getCompound(i)));
+//            }
 //
-//        Component energyText = Component.translatable("tooltip.waila.generator.energy", energy, maxEnergy)
-//                .withStyle(style -> style.withColor(0xAAAAAA).withItalic(true));
-//
-//        iTooltip.add(energyText);
-
-
-
-        CompoundTag data = blockAccessor.getServerData();
-        if (data.contains("progress")) {
-            int progress = data.getInt("progress");
-            ListTag forgeItems = data.getList("forge", 10);
-            NonNullList<ItemStack> inventory = NonNullList.withSize(4, ItemStack.EMPTY);
-
-            for (int i = 0; i < forgeItems.size(); ++i) {
-                inventory.set(i, ItemStack.parseOptional(blockAccessor.getLevel().registryAccess(), forgeItems.getCompound(i)));
-            }
-
-            IElementHelper helper = IElementHelper.get();
-            int total = data.getInt("maxProgress");
-            iTooltip.add(helper.item((ItemStack) inventory.get(0)));
-            iTooltip.append(helper.item((ItemStack) inventory.get(1)));
-            iTooltip.append(helper.spacer(4, 0));
-            iTooltip.append(helper.progress((float) progress / (float) total).translate(new Vec2(-2.0F, 0.0F)));
-            iTooltip.append(helper.item((ItemStack) inventory.get(2)));
-        }
-        if(data.contains("energy")){
-            IElementHelper helper = IElementHelper.get();
-            iTooltip.add(
-                    helper.progress(getProgress(energy, maxEnergy),
-                            Component.translatable("tooltip.waila.flesh_forge.energy", energy, maxEnergy),
-                            helper.progressStyle().color(0xAA0000, 0xAA0000).textColor(-1),
-                            Util.make(BoxStyle.GradientBorder.DEFAULT_VIEW_GROUP,
-                                    style -> style.borderColor = new int[] { 0xFF555555, 0xFF555555, 0xFF555555, 0xFF555555 }),
-                            true));
-        }
+//            IElementHelper helper = IElementHelper.get();
+//            int total = data.getInt("maxProgress");
+//            iTooltip.add(helper.item((ItemStack) inventory.get(0)));
+//            iTooltip.append(helper.item((ItemStack) inventory.get(1)));
+//            iTooltip.append(helper.spacer(4, 0));
+//            iTooltip.append(helper.progress((float) progress / (float) total).translate(new Vec2(-2.0F, 0.0F)));
+//            iTooltip.append(helper.item((ItemStack) inventory.get(2)));
+//        }
+////        if(data.contains("energy")){
+////            IElementHelper helper = IElementHelper.get();
+////            iTooltip.add(
+////                    helper.progress(getProgress(energy, maxEnergy),
+////                            Component.translatable("tooltip.waila.flesh_forge.energy", energy, maxEnergy),
+////                            helper.progressStyle().color(0xAA0000, 0xAA0000).textColor(-1),
+////                            Util.make(BoxStyle.GradientBorder.DEFAULT_VIEW_GROUP,
+////                                    style -> style.borderColor = new int[] { 0xFF555555, 0xFF555555, 0xFF555555, 0xFF555555 }),
+////                            true));
+////        }
     }
 
     @Override
     public void appendServerData(CompoundTag tag, BlockAccessor blockAccessor) {
-        FleshForgeBlockEntity forgeBE = (FleshForgeBlockEntity) blockAccessor.getBlockEntity();
-
-        BlockEntity var4 = blockAccessor.getBlockEntity();
-        if (var4 instanceof FleshForgeBlockEntity forge) {
-            if (!forge.isInventoryEmpty()) {
-                ListTag items = new ListTag();
-
-                for (int i = 0; i < 4; ++i) {
-                    items.add(forge.getItem(i).saveOptional(blockAccessor.getLevel().registryAccess()));
-                    tag.put("forge", items);
-                }
-                tag.putInt("progress", forgeBE.getProgress());
-                tag.putInt("maxProgress", forgeBE.getMaxProgress());
-            }
-            tag.putInt("energy", forgeBE.getStoredPower());
-            tag.putInt("max_energy", forgeBE.getMaxStoredPower());
-        }
+//        FleshForgeBlockEntity forgeBE = (FleshForgeBlockEntity) blockAccessor.getBlockEntity();
+//
+//        BlockEntity var4 = blockAccessor.getBlockEntity();
+//        if (var4 instanceof FleshForgeBlockEntity forge) {
+//            if (!forge.isInventoryEmpty()) {
+//                ListTag items = new ListTag();
+//
+//                for (int i = 0; i < 4; ++i) {
+//                    items.add(forge.getItem(i).saveOptional(blockAccessor.getLevel().registryAccess()));
+//                    tag.put("forge", items);
+//                }
+//                tag.putInt("progress", forgeBE.getProgress());
+//                tag.putInt("maxProgress", forgeBE.getMaxProgress());
+//            }
+//            tag.putInt("energy", forgeBE.getStoredPower());
+//            tag.putInt("max_energy", forgeBE.getMaxStoredPower());
+//        }
     }
-    private float getProgress(int energy, int maxEnergy) {
-        return (float) energy /maxEnergy;
-    }
+//    private float getProgress(int energy, int maxEnergy) {
+//        return (float) energy /maxEnergy;
+//    }
 
     @Override
     public ResourceLocation getUid() {

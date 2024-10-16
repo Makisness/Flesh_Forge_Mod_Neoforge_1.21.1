@@ -2,7 +2,6 @@ package net.makisness.fleshforgemod.block;
 
 import net.makisness.fleshforgemod.block.custom.FleshForgeBlock;
 import net.makisness.fleshforgemod.block.custom.FleshGeneratorBlock;
-import net.makisness.fleshforgemod.block.custom.TestBlock;
 import net.makisness.fleshforgemod.fleshforgemod;
 import net.makisness.fleshforgemod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -35,9 +34,6 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> FLESH_FORGE = registerBlock("flesh_forge",
             ()-> new FleshForgeBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops()));
-
-    public static final DeferredBlock<Block> TEST_BLOCK = registerBlock("test_block",
-            ()-> new TestBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops()));
 
     private static <T extends Block>DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
