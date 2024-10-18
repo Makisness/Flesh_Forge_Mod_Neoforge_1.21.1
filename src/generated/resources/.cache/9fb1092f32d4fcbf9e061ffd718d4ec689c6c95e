@@ -1,13 +1,13 @@
-// 1.21.1	2024-10-13T12:38:41.159986	Recipes
+// 1.21.1	2024-10-16T18:03:24.8787703	Recipes
 34028a173acc1f549f1f953f12f937391935c9e7 data/fleshforgemod/advancement/recipes/bio_cpu.json
 c29032f5ee22f102d5bca5d5e6855b221617fc05 data/fleshforgemod/advancement/recipes/misc/aluminum_from_furnace.json
 c2bc82024ba7bf22717447ceda450a4251355748 data/fleshforgemod/advancement/recipes/misc/bucket_flesh.json
-7a136ab43238d6ab6b4a3be897b771a35db5694c data/fleshforgemod/advancement/recipes/misc/flesh_mass.json
 0dd9070f3626a2dd275ad7fb749d88bee7a11352 data/fleshforgemod/advancement/recipes/misc/gelatin_from_furnace.json
+a6f5a4fad6261e7b696aff652d2998077145d849 data/fleshforgemod/advancement/recipes/misc/muscle_fibers.json
 187cb065f63a85944e751f0c5c9750de7a56d3c7 data/fleshforgemod/recipe/aluminum_from_furnace.json
 6de83d6b4ed8cf0c914239b75e7fa5f3af28bca8 data/fleshforgemod/recipe/bio_cpu.json
 07cff9fbb8ffb1cc707012aaa2ea2d9e8e3e5fa4 data/fleshforgemod/recipe/bucket_flesh.json
-c966f3a4dab42b9b0dd7987d955d27a9073c7739 data/fleshforgemod/recipe/flesh_mass.json
 c5dd922fd38775042e4ca9fa28310b0beeedbcde data/fleshforgemod/recipe/gelatin_from_furnace.json
+7644feb4f799923260368061cfb38fa0281656a3 data/fleshforgemod/recipe/muscle_fibers.json
 27595f18f09a8f3d5aebed34f92ad70d422a8814 data/minecraft/advancement/recipes/misc/biocpu_from_crafting.json
 f88dbcc3fb60a049635f4d23abee9c5605873b48 data/minecraft/recipe/biocpu_from_crafting.json

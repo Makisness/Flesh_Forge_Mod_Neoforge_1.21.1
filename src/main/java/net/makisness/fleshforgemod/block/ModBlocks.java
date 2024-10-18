@@ -21,6 +21,9 @@ public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(fleshforgemod.MODID);
 
+
+    //Ores
+
     public static final DeferredBlock<Block> BAUXITE_ORE = registerBlock("bauxite_ore",
             ()-> new DropExperienceBlock(UniformInt.of(2,4),
                     BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops().sound(SoundType.STONE)));
@@ -29,11 +32,17 @@ public class ModBlocks {
             ()-> new DropExperienceBlock(UniformInt.of(2,4),
                     BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 
-    public static final DeferredBlock<Block> FLESH_GENERATOR = registerBlock("flesh_generator",
-            ()-> new FleshGeneratorBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops().noOcclusion()));
+
+    //Crafting
 
     public static final DeferredBlock<Block> FLESH_FORGE = registerBlock("flesh_forge",
             ()-> new FleshForgeBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops()));
+
+
+    //Energy
+
+    public static final DeferredBlock<Block> FLESH_GENERATOR = registerBlock("flesh_generator",
+            ()-> new FleshGeneratorBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops().noOcclusion()));
 
     private static <T extends Block>DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

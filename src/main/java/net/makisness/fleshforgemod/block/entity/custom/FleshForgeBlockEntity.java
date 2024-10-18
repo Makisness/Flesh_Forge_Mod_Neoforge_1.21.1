@@ -252,7 +252,6 @@ public class FleshForgeBlockEntity extends BlockEntity implements MenuProvider {
         return getCurrentRecipe().get().value().cookTime();
     }
 
-
     private boolean canInsertItemIntoOutputSlot(ItemStack output) {
         return itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() ||
                 itemHandler.getStackInSlot(OUTPUT_SLOT).getItem() == output.getItem();

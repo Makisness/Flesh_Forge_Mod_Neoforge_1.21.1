@@ -23,7 +23,6 @@ public class FleshForgeRecipeBuilder extends SimpleRecipeBuilder {
             this.outputItem = outputItem;
             this.inputItem = inputItem;
             this.cookTime = CookTime;
-
         }
 
         // Saves a recipe using the given RecipeOutput and id. This method is defined in the RecipeBuilder interface.

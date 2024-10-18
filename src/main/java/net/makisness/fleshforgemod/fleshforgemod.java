@@ -9,6 +9,7 @@ import net.makisness.fleshforgemod.recipe.ModRecipes;
 import net.makisness.fleshforgemod.screen.ModMenuTypes;
 import net.makisness.fleshforgemod.screen.custom.FleshForgeScreen;
 import net.makisness.fleshforgemod.screen.custom.FleshGeneratorScreen;
+import net.makisness.fleshforgemod.tools.MobDropHandler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ItemSteerable;
 import net.minecraft.world.entity.LivingEntity;
@@ -80,6 +81,7 @@ public class fleshforgemod
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::registerCapabilities);
+        NeoForge.EVENT_BUS.register(MobDropHandler.class);
 
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
@@ -127,26 +129,4 @@ public class fleshforgemod
         }
 
     }
-
-    @EventBusSubscriber(modid = MODID)
-    public static class MobDropHandler{
-        private static final Random RANDOM = new Random();
-        @SubscribeEvent
-        public static void onMobDrops(LivingDropsEvent event){
-            LivingEntity entity = event.getEntity();
-
-            float hostiledropChance = 0.7f;
-            float passivedropChance = 0.3f;
-
-            float dropChance = entity.getType().getCategory() == MobCategory.MONSTER ? hostiledropChance : passivedropChance;
-
-            if(RANDOM.nextDouble()<dropChance) {
-                ItemStack customItemStack = new ItemStack(ModItems.FLESH_MASS.get());
-
-                event.getDrops().add(new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), customItemStack));
-            }
-        }
-    }
-
-
 }

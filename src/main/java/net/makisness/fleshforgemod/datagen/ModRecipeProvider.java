@@ -2,14 +2,13 @@ package net.makisness.fleshforgemod.datagen;
 
 import net.makisness.fleshforgemod.item.ModItems;
 import net.makisness.fleshforgemod.recipe.FleshForgeRecipeBuilder;
-import net.minecraft.client.Minecraft;
+import net.makisness.fleshforgemod.recipe.ShapelessBucketBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 
 import java.util.concurrent.CompletableFuture;
@@ -30,7 +29,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('B',ModItems.FLESH_MASS.get())
                 .unlockedBy("has_flesh_mass", has(ModItems.FLESH_MASS)).save(recipeOutput, "biocpu_from_crafting");
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,ModItems.BUCKET_FLESH.get(),1)
+        ShapelessBucketBuilder.shapeless(RecipeCategory.MISC,ModItems.BUCKET_FLESH.get(),1)
                 .requires(Items.WATER_BUCKET)
                 .requires(ModItems.FLESH_MASS)
                 .requires(Items.BONE)
@@ -39,11 +38,11 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_bone", has(Items.BONE))
                 .save(recipeOutput);
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,ModItems.FLESH_MASS.get(),1)
-                .requires(Items.DIAMOND_SWORD)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,ModItems.MUSCLE_FIBERS.get(),2)
+                .requires(ModItems.ROUND_KNIFE)
                 .requires(Items.ROTTEN_FLESH)
-                .unlockedBy("has_rotten_flesh", has(Items.WATER_BUCKET))
-                .unlockedBy("has_diamond_sword", has(Items.DIAMOND_SWORD))
+                .unlockedBy("has_round_knife", has(ModItems.ROUND_KNIFE))
+                .unlockedBy("has_rotten_flesh", has(Items.ROTTEN_FLESH))
                 .save(recipeOutput);
 
         SimpleCookingRecipeBuilder.smelting(
@@ -64,7 +63,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         new FleshForgeRecipeBuilder(Ingredient.of(ModItems.FLESH_MASS),
                 new ItemStack(ModItems.BIO_CPU.get()),200)
-                .unlockedBy("has_flesh_mass", has(ModItems.FLESH_MASS)).save(recipeOutput);
+                .unlockedBy("has_flesh_mass", has(ModItems.FLESH_MASS))
+                .save(recipeOutput);
 
     }
 }
