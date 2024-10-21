@@ -9,6 +9,7 @@ import net.makisness.fleshforgemod.recipe.ModRecipes;
 import net.makisness.fleshforgemod.screen.ModMenuTypes;
 import net.makisness.fleshforgemod.screen.custom.FleshForgeScreen;
 import net.makisness.fleshforgemod.screen.custom.FleshGeneratorScreen;
+import net.makisness.fleshforgemod.screen.custom.OrganSorterScreen;
 import net.makisness.fleshforgemod.tools.MobDropHandler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ItemSteerable;
@@ -126,6 +127,7 @@ public class fleshforgemod
         public static void registerScreens(RegisterMenuScreensEvent event){
             event.register(ModMenuTypes.FLESH_FORGE_MENU.get(), FleshForgeScreen::new);
             event.register(ModMenuTypes.FLESH_GENERATOR_MENU.get(), FleshGeneratorScreen::new);
+            event.register(ModMenuTypes.ORGAN_SORTER_MENU.get(), OrganSorterScreen::new);
         }
 
     }

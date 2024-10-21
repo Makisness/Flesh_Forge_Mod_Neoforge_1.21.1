@@ -1,9 +1,11 @@
 {
   "type": "fleshforgemod:biofabricating",
   "cookTime": 200,
-  "ingredient": {
-    "item": "fleshforgemod:flesh_mass"
-  },
+  "ingredients": [
+    {
+      "item": "fleshforgemod:flesh_mass"
+    }
+  ],
   "result": {
     "count": 1,
     "id": "fleshforgemod:bio_cpu"

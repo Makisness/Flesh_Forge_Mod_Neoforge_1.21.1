@@ -2,31 +2,29 @@ package net.makisness.fleshforgemod.screen.custom;
 
 import net.makisness.fleshforgemod.block.ModBlocks;
 import net.makisness.fleshforgemod.block.entity.custom.FleshForgeBlockEntity;
+import net.makisness.fleshforgemod.block.entity.custom.OrganSorterBlockEntity;
 import net.makisness.fleshforgemod.screen.ModMenuTypes;
 import net.minecraft.core.BlockPos;
-
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-import static net.makisness.fleshforgemod.block.entity.custom.FleshGeneratorBlockEntity.SLOT;
-
-public class FleshForgeMenu extends AbstractContainerMenu {
-    public final FleshForgeBlockEntity blockEntity;
+public class OrganSorterMenu extends AbstractContainerMenu {
+    public final OrganSorterBlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
-    private int power;
-    private final BlockPos pos;
 
 
-    public FleshForgeMenu(int containerId, Inventory inv, Player player, BlockPos pos) {
-        super(ModMenuTypes.FLESH_FORGE_MENU.get(), containerId);
+    public OrganSorterMenu(int containerId, Inventory inv, Player player, BlockPos pos) {
+        super(ModMenuTypes.ORGAN_SORTER_MENU.get(), containerId);
         this.level = inv.player.level();
-        this.blockEntity = (FleshForgeBlockEntity) player.level().getBlockEntity(pos);
+        this.blockEntity = (OrganSorterBlockEntity) player.level().getBlockEntity(pos);
+
 
         assert this.blockEntity != null;
         this.data = this.blockEntity.getData();
@@ -34,46 +32,22 @@ public class FleshForgeMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-
-
-        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,0,45,25));
-        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,1,64,25));
-        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,2,45,44));
-        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,3,64,44));
-        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,4,114,34));
+        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,0,46, 34));
+        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,1,109,15));
+        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,2,128,15));
+        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,3,147,15));
+        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,4,109,34));
+        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,5,128,34));
+        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,6,147,34));
+        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,7,109,53));
+        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,8,128,53));
+        this.addSlot(new SlotItemHandler(this.blockEntity.itemHandler,9,147,53));
 
         addDataSlots(data);
-
-        this.pos = pos;
-        if (player.level().getBlockEntity(pos) instanceof FleshForgeBlockEntity forge) {
-            addDataSlot(new DataSlot() {
-                @Override
-                public int get() {
-                    return forge.getStoredPower() & 0xffff;
-                }
-
-                @Override
-                public void set(int pValue) {
-                    FleshForgeMenu.this.power = (FleshForgeMenu.this.power & 0xffff0000) | (pValue & 0xffff);
-                }
-            });
-            addDataSlot(new DataSlot() {
-                @Override
-                public int get() {
-                    return (forge.getStoredPower() >> 16) & 0xffff;
-                }
-
-                @Override
-                public void set(int pValue) {
-                    FleshForgeMenu.this.power = (FleshForgeMenu.this.power & 0xffff) | ((pValue & 0xffff) << 16);
-                }
-            });
-        }
     }
 
-    public int getPower() {
-        return power;
-    }
+
+
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
     // must assign a slot number to each of the slots used by the GUI.
@@ -91,7 +65,7 @@ public class FleshForgeMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 5;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 10;  // must be the number of slots you have!
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
@@ -129,7 +103,7 @@ public class FleshForgeMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
-                player, ModBlocks.FLESH_FORGE.get());
+                player, ModBlocks.ORGAN_SORTER.get());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
@@ -156,6 +130,15 @@ public class FleshForgeMenu extends AbstractContainerMenu {
         int arrowPixelSize = 24;
 
         return  maxProgress != 0 && progress !=0 ? progress * arrowPixelSize / maxProgress : 0;
+    }
+
+    public int getScaledCrystalProgress() {
+        int progress = this.data.get(0);
+        int maxProgress = this.data.get(1);
+        int crystalPixelSize = 16;
+
+        return  maxProgress != 0 && progress !=0 ? progress * crystalPixelSize / maxProgress : 0;
+
     }
 
 }

@@ -1,5 +1,6 @@
-// 1.21.1	2024-10-16T00:38:57.741328	Loot Tables
+// 1.21.1	2024-10-18T20:28:25.2348767	Loot Tables
 0ae40a48dc3ef02eb4739e78d43b29ce97c86176 data/fleshforgemod/loot_table/blocks/bauxite_ore.json
 1f73f1eaae1a3779c619fbc836c24181f163b924 data/fleshforgemod/loot_table/blocks/deepslate_bauxite_ore.json
 40efc663ba9c440b04ec89905e1c830605bc5847 data/fleshforgemod/loot_table/blocks/flesh_forge.json
 0856dd1c55fc2f6cec119e0b19d1ab813464aaf4 data/fleshforgemod/loot_table/blocks/flesh_generator.json
+e1da0730fb040e71a4b039bb6dc10503800ff36c data/fleshforgemod/loot_table/blocks/organ_sorter.json

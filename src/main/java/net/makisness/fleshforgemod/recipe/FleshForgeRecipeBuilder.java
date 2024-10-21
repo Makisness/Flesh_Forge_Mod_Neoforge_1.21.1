@@ -9,19 +9,21 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
+import java.util.List;
+
 public class FleshForgeRecipeBuilder extends SimpleRecipeBuilder {
         private final ItemStack outputItem;
-        private final Ingredient inputItem;
+        private final List<Ingredient> inputItems;
         private final int cookTime;
 
         // Since we have exactly one of each input, we pass them to the constructor.
         // Builders for recipe serializers that have ingredient lists of some sort would usually
         // initialize an empty list and have #addIngredient or similar methods instead.
-        public FleshForgeRecipeBuilder(Ingredient inputItem, ItemStack outputItem, Integer CookTime) {
+        public FleshForgeRecipeBuilder(List<Ingredient> inputItems, ItemStack outputItem, Integer CookTime) {
             super(outputItem);
 
             this.outputItem = outputItem;
-            this.inputItem = inputItem;
+            this.inputItems = inputItems;
             this.cookTime = CookTime;
         }
 
@@ -35,7 +37,7 @@ public class FleshForgeRecipeBuilder extends SimpleRecipeBuilder {
                     .requirements(AdvancementRequirements.Strategy.OR);
             this.critera.forEach(advancement::addCriterion);
             // Our factory parameters are the result, the block state, and the ingredient.
-            FleshForgeRecipe recipe = new FleshForgeRecipe(this.inputItem,this.outputItem, this.cookTime);
+            FleshForgeRecipe recipe = new FleshForgeRecipe(this.inputItems,this.outputItem, this.cookTime);
             // Pass the id, the recipe, and the recipe advancement into the RecipeOutput.
             output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")));
         }

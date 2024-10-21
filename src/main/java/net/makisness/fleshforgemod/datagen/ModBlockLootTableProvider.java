@@ -40,6 +40,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         add(ModBlocks.FLESH_GENERATOR.get(),
                 block -> createStoredPower(ModBlocks.FLESH_GENERATOR.get()));
 
+        dropSelf(ModBlocks.ORGAN_SORTER.get());
+
         add(ModBlocks.BAUXITE_ORE.get(),
                 block -> createOreDrop(ModBlocks.BAUXITE_ORE.get(), ModItems.RAW_BAUXITE.get()));
         add(ModBlocks.DEEPSLATE_BAUXITE_ORE.get(),

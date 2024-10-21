@@ -21,6 +21,7 @@ public class FleshGeneratorMenu extends AbstractContainerMenu {
     public FleshGeneratorMenu(int containerId, Player player, BlockPos pos) {
         super(ModMenuTypes.FLESH_GENERATOR_MENU.get(), containerId);
         this.pos = pos;
+
         if (player.level().getBlockEntity(pos) instanceof FleshGeneratorBlockEntity generator) {
             addSlot(new SlotItemHandler(generator.getItems(), SLOT, 64, 24));
             addDataSlot(new DataSlot() {

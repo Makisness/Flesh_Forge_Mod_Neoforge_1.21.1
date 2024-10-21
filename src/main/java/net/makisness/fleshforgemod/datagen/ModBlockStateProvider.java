@@ -28,8 +28,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
         horizontalBlock(ModBlocks.FLESH_FORGE.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/flesh_forge"))); {
         }
+        horizontalBlock(ModBlocks.ORGAN_SORTER.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/organ_sorter"))); {
+
+        }
         blockItem(ModBlocks.FLESH_FORGE);
         blockItem(ModBlocks.FLESH_GENERATOR);
+        blockItem(ModBlocks.ORGAN_SORTER);
         }
 
     private void blockWithItem(DeferredBlock<?> deferredBlock){

@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 public class FleshForgeRecipeCategory implements IRecipeCategory<FleshForgeRecipe> {
     public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(fleshforgemod.MODID,"biofabricating");
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(fleshforgemod.MODID,
-            "textures/gui/flesh_forge/crystallizer_gui.png");
+            "textures/gui/flesh_forge/flesh_forge_gui.png");
 
     public static final RecipeType<FleshForgeRecipe> FLESH_FORGE_RECIPE_RECIPE_TYPE =
             new RecipeType<>(UID, FleshForgeRecipe.class);

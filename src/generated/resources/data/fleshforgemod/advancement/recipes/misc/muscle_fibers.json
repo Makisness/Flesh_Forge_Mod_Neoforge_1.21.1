@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_rotten_flesh": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:rotten_flesh"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_round_knife": {
+      "conditions": {
+        "items": [
+          {
+            "items": "fleshforgemod:round_knife"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "fleshforgemod:muscle_fibers"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_round_knife",
+      "has_rotten_flesh"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "fleshforgemod:muscle_fibers"
+    ]
+  }
+}

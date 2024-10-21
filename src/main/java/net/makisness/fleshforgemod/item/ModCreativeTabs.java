@@ -39,6 +39,7 @@ public class ModCreativeTabs {
                         output.accept(ModBlocks.DEEPSLATE_BAUXITE_ORE);
                         output.accept(ModBlocks.FLESH_GENERATOR);
                         output.accept(ModBlocks.FLESH_FORGE);
+                        output.accept(ModBlocks.ORGAN_SORTER);
 
                     }).build());
 

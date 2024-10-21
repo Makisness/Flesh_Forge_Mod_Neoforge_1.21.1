@@ -2,6 +2,7 @@ package net.makisness.fleshforgemod.recipe;
 
 import net.makisness.fleshforgemod.fleshforgemod;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -30,19 +31,14 @@ public class ModRecipes {
                     }
                 });
 
-    public static final DeferredHolder<RecipeSerializer<?>, ShapelessRecipe.Serializer> SHAPELESS_BUCKET_SERIALIZER =
+        public static final DeferredHolder<RecipeSerializer<?>, ShapelessBucketRecipe.Serializer> SHAPELESS_BUCKET_SERIALIZER =
             SERIALIZERS.register("shapelessbucket", ShapelessBucketRecipe.Serializer::new);
 
-        public static final DeferredHolder<RecipeType<?>, RecipeType<ShapelessBucketRecipe>> SHAPELESS_BUCKET_TYPE =
-                TYPES.register("shapelessbucket", () -> new RecipeType<ShapelessBucketRecipe>() {
-                    @Override
-                    public String toString() {
-                        return "shapelessbucket";
-                    }
-                });
-
-
-
+    public static final Supplier<RecipeType<ShapelessBucketRecipe>> SHAPELESS_BUCKET_TYPE =
+            TYPES.register(
+                    "shapelessbucket",
+                    // We need the qualifying generic here due to generics being generics.
+                    () -> RecipeType.<ShapelessBucketRecipe>simple(ResourceLocation.fromNamespaceAndPath(fleshforgemod.MODID, "shapelessbucket")));
 
         public static void register(IEventBus eventBus) {
             SERIALIZERS.register(eventBus);

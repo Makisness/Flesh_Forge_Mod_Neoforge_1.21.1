@@ -5,26 +5,27 @@
   "item.fleshforgemod.flesh_mass": "Mass of Flesh",
   "item.fleshforgemod.raw_bauxite": "Raw Bauxite",
   "item.fleshforgemod.round_knife": "Round Knife",
+  "item.fleshforgemod.muscle_fibers": "Muscle Fibers",
 
   "block.fleshforgemod.bauxite_ore": "Bauxite Ore",
   "block.fleshforgemod.deepslate_bauxite_ore": "Deepslate Bauxite Ore",
   "block.fleshforgemod.flesh_generator": "Flesh Generator",
   "block.fleshforgemod.flesh_forge": "Flesh Forge",
-  "block.fleshforgemod.test_block": "Test Block",
+  "block.fleshforgemod.organ_sorter": "Organ Sorter",
 
   "blockEntity.fleshforgemod.flesh_forge": "Flesh Forge",
   "blockEntity.fleshforgemod.flesh_generator": "Flesh Generator",
+  "blockEntity.fleshforgemod.organ_sorter": "Organ Sorter",
 
   "creativetab.fleshforgemod.flesh_forge_ingredients_tab": "Flesh Forge Ingredients",
   "creativetab.fleshforgemod.flesh_forge_blocks_tab": "Flesh Forge Blocks",
 
-
+  "config.jade.plugin_fleshforgemod.flesh_forge": "Flesh Forge",
+  "config.jade.plugin_fleshforgemod.organ_sorter": "Organ Sorter",
   "config.jade.plugin_fleshforgemod.generator": "Flesh Generator",
+
   "tooltip.waila.generator.energy": "%s / %s ATP",
   "tooltip.waila.test.energy": "%s / %s ATP",
-  "tooltip.waila.flesh_forge.energy": "%s / %s ATP",
-
-  "config.jade.plugin_fleshforgemod.testblock": "IM GOING TO FIGURE OUT WHAT THIS IS",
-  "config.jade.plugin_fleshforgemod.flesh_forge": "IM  NOT SURE WHAT THIS IS AGAIN"
+  "tooltip.waila.flesh_forge.energy": "%s / %s ATP"
 
 }

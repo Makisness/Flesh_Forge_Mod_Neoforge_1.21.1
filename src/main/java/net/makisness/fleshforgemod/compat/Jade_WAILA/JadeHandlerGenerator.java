@@ -5,7 +5,9 @@ import net.makisness.fleshforgemod.block.entity.custom.FleshGeneratorBlockEntity
 import net.makisness.fleshforgemod.fleshforgemod;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -20,6 +22,8 @@ import snownee.jade.api.IServerDataProvider;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 import snownee.jade.api.ui.*;
+
+import java.util.SequencedMap;
 
 public class JadeHandlerGenerator implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
 
@@ -65,6 +69,7 @@ public class JadeHandlerGenerator implements IBlockComponentProvider, IServerDat
 //
 //            iTooltip.append(helper.item((ItemStack) inventory.get(0)));
 //        }
+
     }
 //
 //    private float getProgress(int energy, int maxEnergy) {
