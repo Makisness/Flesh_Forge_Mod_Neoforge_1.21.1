@@ -5,6 +5,7 @@ import net.makisness.fleshforgemod.component.ModDataComponentTypes;
 import net.makisness.fleshforgemod.recipe.FleshForgeRecipe;
 import net.makisness.fleshforgemod.recipe.FleshForgeRecipeInput;
 import net.makisness.fleshforgemod.recipe.ModRecipes;
+import net.makisness.fleshforgemod.recipe.OrganSorterRecipe;
 import net.makisness.fleshforgemod.screen.custom.FleshForgeMenu;
 import net.makisness.fleshforgemod.screen.custom.OrganSorterMenu;
 import net.makisness.fleshforgemod.tools.AdaptedEnergyStorage;
@@ -12,6 +13,7 @@ import net.makisness.fleshforgemod.tools.CustomEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -26,11 +28,14 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -129,19 +134,32 @@ public class OrganSorterBlockEntity extends BlockEntity implements MenuProvider 
         Containers.dropContents(this.level, this.worldPosition, inv);
     }
 
-    public void tick(Level level, BlockPos pos, BlockState state){
-        if(hasRecipe() && isOutputSlotEmptyOrReceivable()){
-            setChanged(level,pos,state);
-            if(hasCraftingFinished()){
-                craftItem();
-                resetProgress();
+
+    public void handleManualCraftingProgress(Level level, BlockPos pos, BlockState state) {
+        if (hasRecipe() && isOutputSlotEmptyOrReceivable()) {
+            increaseCraftingProgress(); // Increment the crafting progress
+            setChanged(level, pos, state); // Ensure the state change is marked and synced
+            if (hasCraftingFinished()) {
+                craftItem(); // Perform crafting
+                resetProgress(); // Reset progress after crafting
             }
         } else {
-            resetProgress();
+            resetProgress(); // Reset progress if recipe is invalid
         }
     }
 
-
+//    public void tick(Level level, BlockPos pos, BlockState state){
+//        if(hasRecipe() && isOutputSlotEmptyOrReceivable()){
+//            increaseCraftingProgress();
+//            setChanged(level,pos,state);
+//            if(hasCraftingFinished()){
+//                craftItem();
+//                resetProgress();
+//            }
+//        } else {
+//            resetProgress();
+//        }
+//    }
 
     public int getProgress() {
        return progress;
@@ -158,12 +176,45 @@ public class OrganSorterBlockEntity extends BlockEntity implements MenuProvider 
 
 
     private void craftItem() {
-        Optional<RecipeHolder<FleshForgeRecipe>> recipe = getCurrentRecipe();
-        ItemStack output = recipe.get().value().output();
+        Optional<RecipeHolder<OrganSorterRecipe>> recipe = getCurrentRecipe();
 
-        itemHandler.extractItem(INPUT_SLOT, 1, false);
-        itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(output.getItem(),
-                itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + output.getCount()));
+        if (recipe.isPresent()) {
+            ItemStack recipeOut = BuiltInRegistries.ITEM.get(recipe.get().value().getWeightedRandomOutput()).getDefaultInstance();
+            ItemStack output = recipeOut.copy(); // Create a fresh copy of the output
+
+            // Extract the input item from the input slot
+            itemHandler.extractItem(INPUT_SLOT, 1, false);
+
+            // Find an available output slot
+            int availableSlot = findAvailableOutputSlot(output);
+
+            if (availableSlot != -1) {
+                ItemStack currentStack = itemHandler.getStackInSlot(availableSlot);
+
+                // If the slot is empty, place the output there
+                if (currentStack.isEmpty()) {
+                    itemHandler.setStackInSlot(availableSlot, output);
+                }
+                // If the slot already contains the same item, add to the existing stack
+                else {
+                    int newCount = currentStack.getCount() + output.getCount();
+                    int maxStackSize = currentStack.getMaxStackSize();
+
+                    if (newCount <= maxStackSize) {
+                        currentStack.setCount(newCount);
+                    } else {
+                        currentStack.setCount(maxStackSize);
+                        output.setCount(newCount - maxStackSize);
+                        // If there's leftover, try placing it in another slot
+                        availableSlot = findAvailableOutputSlot(output);
+                        if (availableSlot != -1) {
+                            itemHandler.setStackInSlot(availableSlot, output);
+                        }
+                    }
+                    itemHandler.setStackInSlot(availableSlot, currentStack);
+                }
+            }
+        }
     }
 
     private boolean hasCraftingFinished() {
@@ -180,34 +231,36 @@ public class OrganSorterBlockEntity extends BlockEntity implements MenuProvider 
     }
 
     private boolean hasRecipe() {
-        Optional<RecipeHolder<FleshForgeRecipe>> recipe = getCurrentRecipe();
+        Optional<RecipeHolder<OrganSorterRecipe>> recipe = getCurrentRecipe();
         if(recipe.isEmpty()){
             return false;
         }
-        ItemStack output = recipe.get().value().output();
-        maxProgress = recipe.get().value().cookTime();
+
+        ItemStack recipeOut = BuiltInRegistries.ITEM.get(recipe.get().value().getWeightedRandomOutput()).getDefaultInstance();
+
+        ItemStack output = recipeOut;
+        maxProgress = recipe.get().value().rightClickCount();
         return canInsertAmountIntoOutputSlot(output,output.getCount()) && canInsertItemIntoOutputSlot(output);
     }
 
-    private Optional<RecipeHolder<FleshForgeRecipe>> getCurrentRecipe() {
+    private Optional<RecipeHolder<OrganSorterRecipe>> getCurrentRecipe() {
         return this.level.getRecipeManager()
-                .getRecipeFor(ModRecipes.FLESHFORGE_TYPE.get(),new FleshForgeRecipeInput(itemHandler.getStackInSlot(INPUT_SLOT)), level);
+                .getRecipeFor(ModRecipes.ORGAN_SORTER_TYPE.get(), new RecipeInput() {
+                    @Override
+                    public ItemStack getItem(int index) {
+                        return itemHandler.getStackInSlot(INPUT_SLOT);
+                    }
+
+                    @Override
+                    public int size() {
+                        return 1;
+                    }
+                }, level);
     }
     private int getCookTime() {
-        return getCurrentRecipe().get().value().cookTime();
+        return getCurrentRecipe().get().value().getRightClickCount();
     }
 
-//    private boolean canInsertItemIntoOutputSlot(ItemStack output) {
-//        return itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() ||
-//                itemHandler.getStackInSlot(OUTPUT_SLOT).getItem() == output.getItem();
-//    }
-//
-//    private boolean canInsertAmountIntoOutputSlot(int count) {
-//       int maxCount = itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() ? 64 : itemHandler.getStackInSlot(OUTPUT_SLOT).getMaxStackSize();
-//       int currentCount = itemHandler.getStackInSlot(OUTPUT_SLOT).getCount();
-//
-//       return maxCount >= currentCount + count;
-//    }
 
     private int findAvailableOutputSlot(ItemStack output) {
         for (int i = OUTPUT_SLOT; i <= OUTPUT_SLOT_9; i++) {
@@ -264,6 +317,10 @@ public class OrganSorterBlockEntity extends BlockEntity implements MenuProvider 
 
     public ContainerData getData() {
        return this.data;
+    }
+
+    public IItemHandler getItemHandler(){
+        return itemHandler;
     }
 }
 

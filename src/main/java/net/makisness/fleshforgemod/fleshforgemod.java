@@ -11,6 +11,7 @@ import net.makisness.fleshforgemod.screen.custom.FleshForgeScreen;
 import net.makisness.fleshforgemod.screen.custom.FleshGeneratorScreen;
 import net.makisness.fleshforgemod.screen.custom.OrganSorterScreen;
 import net.makisness.fleshforgemod.tools.MobDropHandler;
+import net.makisness.fleshforgemod.tools.ToolTipHandler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ItemSteerable;
 import net.minecraft.world.entity.LivingEntity;
@@ -83,6 +84,7 @@ public class fleshforgemod
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::registerCapabilities);
         NeoForge.EVENT_BUS.register(MobDropHandler.class);
+        NeoForge.EVENT_BUS.register(ToolTipHandler.class);
 
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
@@ -105,7 +107,10 @@ public class fleshforgemod
     private void registerCapabilities(RegisterCapabilitiesEvent event){
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.FLESH_GENERATOR_BE.get(), (o, direction) -> o.getItemHandler());
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.FLESH_GENERATOR_BE.get(), (o, direction) -> o.getEnergyHandler());
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.FLESH_FORGE_BE.get(),(o, direction) -> o.getEnergyHandler());}
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.FLESH_FORGE_BE.get(),(o, direction) -> o.getEnergyHandler());
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.ORGAN_SORTER_BE.get(), (o, direction) -> o.getItemHandler());
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.FLESH_FORGE_BE.get(), (o, direction) -> o.getItemHandler());
+    }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent

@@ -94,7 +94,7 @@ public record FleshForgeRecipe(List<Ingredient> inputItems, ItemStack output, in
 
     @Override
     public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return output;
+        return output.copy();
     }
 
     @Override
@@ -119,7 +119,7 @@ public record FleshForgeRecipe(List<Ingredient> inputItems, ItemStack output, in
                 Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(FleshForgeRecipe::inputItems),
                 ItemStack.CODEC.fieldOf("result").forGetter(FleshForgeRecipe::output),
                 Codec.INT.fieldOf("cookTime").forGetter(FleshForgeRecipe::cookTime)
-        ).apply(inst, FleshForgeRecipe::new));
+                ).apply(inst, FleshForgeRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, FleshForgeRecipe> STREAM_CODEC =
                 StreamCodec.composite(
@@ -140,77 +140,3 @@ public record FleshForgeRecipe(List<Ingredient> inputItems, ItemStack output, in
         }
     }
 }
-
-
-//public record FleshForgeRecipe(Ingredient inputItem, ItemStack output, int cookTime) implements Recipe<FleshForgeRecipeInput> {
-//    @Override
-//    public NonNullList<Ingredient> getIngredients() {
-//        NonNullList<Ingredient> list = NonNullList.create();
-//        list.add(inputItem);
-//        return list;
-//    }
-//
-//    @Override
-//    public boolean matches(FleshForgeRecipeInput input, Level level) {
-//        if(level.isClientSide()) {
-//            return false;
-//        }
-//
-//        return inputItem.test(input.getItem(0));
-//    }
-//
-//    @Override
-//    public NonNullList<ItemStack> getRemainingItems(FleshForgeRecipeInput input) {
-//        return Recipe.super.getRemainingItems(input);
-//    }
-//
-//    @Override
-//    public ItemStack assemble(FleshForgeRecipeInput pInput, HolderLookup.Provider registries) {
-//        return output.copy();
-//    }
-//
-//    @Override
-//    public boolean canCraftInDimensions(int width, int height) {
-//        return true;
-//    }
-//
-//    @Override
-//    public ItemStack getResultItem(HolderLookup.Provider registries) {
-//        return output;
-//    }
-//
-//    @Override
-//    public RecipeSerializer<?> getSerializer() {
-//        return ModRecipes.FLESHFORGE_SERIALIZER.get();
-//    }
-//
-//    @Override
-//    public RecipeType<?> getType() {
-//        return ModRecipes.FLESHFORGE_TYPE.get();
-//    }
-//
-//    public static class Serializer implements RecipeSerializer<FleshForgeRecipe> {
-//        public static final MapCodec<FleshForgeRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-//                Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(FleshForgeRecipe::inputItem),
-//                ItemStack.CODEC.fieldOf("result").forGetter(FleshForgeRecipe::output),
-//                Codec.INT.fieldOf("cookTime").forGetter(FleshForgeRecipe::cookTime)
-//        ).apply(inst, FleshForgeRecipe::new));
-//
-//        public static final StreamCodec<RegistryFriendlyByteBuf, FleshForgeRecipe> STREAM_CODEC =
-//                StreamCodec.composite(
-//                        Ingredient.CONTENTS_STREAM_CODEC, FleshForgeRecipe::inputItem,
-//                        ItemStack.STREAM_CODEC, FleshForgeRecipe::output,
-//                        ByteBufCodecs.INT,FleshForgeRecipe::cookTime,
-//                        FleshForgeRecipe::new);
-//
-//        @Override
-//        public MapCodec<FleshForgeRecipe> codec() {
-//            return CODEC;
-//        }
-//
-//        @Override
-//        public StreamCodec<RegistryFriendlyByteBuf, FleshForgeRecipe> streamCodec() {
-//            return STREAM_CODEC;
-//        }
-//    }
-//}

@@ -38,6 +38,7 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> FLESH_FORGE = registerBlock("flesh_forge",
             ()-> new FleshForgeBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops()));
+
     public static final DeferredBlock<Block> ORGAN_SORTER = registerBlock("organ_sorter",
             ()-> new OrganSorterBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops()));
 

@@ -94,28 +94,37 @@ public class OrganSorterBlock extends BaseEntityBlock {
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (!level.isClientSide()) {
-            if (!player.isCrouching()) {
-                BlockEntity entity = level.getBlockEntity(pos);
-                if (entity instanceof OrganSorterBlockEntity organSorterBlockEntity) {
-                    ((ServerPlayer) player).openMenu(new SimpleMenuProvider(organSorterBlockEntity, Component.literal("Organ Sorter")), pos);
+            BlockEntity entity = level.getBlockEntity(pos);
+            if (entity instanceof OrganSorterBlockEntity organSorterBlockEntity) {
+                if (player.isCrouching()) {
+
+                    //Sneak Right-Click Increase Crafting progress
+                    organSorterBlockEntity.handleManualCraftingProgress(level, pos, state);
                 } else {
-                    throw new IllegalStateException("Our container provider is missing!");
+
+                    //Normal Right-Click Open Screen
+                    ((ServerPlayer) player).openMenu(new SimpleMenuProvider(organSorterBlockEntity, Component.literal("Organ Sorter")), pos);
                 }
+
+            } else {
+                throw new IllegalStateException("Our container provider is missing!");
             }
-            OrganSorterBlockEntity.increaseCraftingProgress();
+
         }
         return ItemInteractionResult.sidedSuccess(level.isClientSide());
     }
 
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        if(level.isClientSide()){
-            return null;
-        }
-        return createTickerHelper(blockEntityType, ModBlockEntities.ORGAN_SORTER_BE.get(),
-                ((level1, pos, state1, blockEntity) -> blockEntity.tick(level1,pos,state1)));
-    }
+
+
+//    @Nullable
+//    @Override
+//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+//        if(level.isClientSide()){
+//            return null;
+//        }
+//        return createTickerHelper(blockEntityType, ModBlockEntities.ORGAN_SORTER_BE.get(),
+//                ((level1, pos, state1, blockEntity) -> blockEntity.tick(level1,pos,state1)));
+//    }
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {

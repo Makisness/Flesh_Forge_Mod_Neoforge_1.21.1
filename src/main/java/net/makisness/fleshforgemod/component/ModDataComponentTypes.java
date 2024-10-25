@@ -28,10 +28,14 @@ public class ModDataComponentTypes {
     public static Supplier<DataComponentType<Integer>> FLESH_FORGE_PROGRESS = register("flesh_forge_progress",
             builder -> builder.persistent(Codec.INT).networkSynchronized(ByteBufCodecs.INT));
 
+    public static Supplier<DataComponentType<Long>> DECAY_COMPONENT = register("decay_component",
+            builder -> builder.persistent(Codec.LONG).networkSynchronized(ByteBufCodecs.VAR_LONG));
+
 
     private static <T>DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator){
         return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());
     }
+
 
 
     public static void register(IEventBus eventBus){

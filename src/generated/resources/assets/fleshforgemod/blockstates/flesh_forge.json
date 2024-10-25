@@ -1,18 +1,33 @@
 {
   "variants": {
-    "facing=east": {
+    "active=false,facing=east": {
       "model": "fleshforgemod:block/flesh_forge",
       "y": 90
     },
-    "facing=north": {
+    "active=false,facing=north": {
       "model": "fleshforgemod:block/flesh_forge"
     },
-    "facing=south": {
+    "active=false,facing=south": {
       "model": "fleshforgemod:block/flesh_forge",
       "y": 180
     },
-    "facing=west": {
+    "active=false,facing=west": {
       "model": "fleshforgemod:block/flesh_forge",
+      "y": 270
+    },
+    "active=true,facing=east": {
+      "model": "fleshforgemod:block/flesh_forge_active",
+      "y": 90
+    },
+    "active=true,facing=north": {
+      "model": "fleshforgemod:block/flesh_forge_active"
+    },
+    "active=true,facing=south": {
+      "model": "fleshforgemod:block/flesh_forge_active",
+      "y": 180
+    },
+    "active=true,facing=west": {
+      "model": "fleshforgemod:block/flesh_forge_active",
       "y": 270
     }
   }

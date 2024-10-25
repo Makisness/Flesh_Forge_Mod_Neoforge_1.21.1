@@ -31,6 +31,17 @@ public class ModRecipes {
                     }
                 });
 
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<OrganSorterRecipe>> ORGAN_SORTER_SERIALIZER =
+            SERIALIZERS.register("organ_sorting", OrganSorterSerializer::new);
+
+    public static final DeferredHolder<RecipeType<?>, RecipeType<OrganSorterRecipe>> ORGAN_SORTER_TYPE =
+            TYPES.register("organ_sorting", () -> new RecipeType<OrganSorterRecipe>() {
+                @Override
+                public String toString() {
+                    return "organ_sorting";
+                }
+            });
+
         public static final DeferredHolder<RecipeSerializer<?>, ShapelessBucketRecipe.Serializer> SHAPELESS_BUCKET_SERIALIZER =
             SERIALIZERS.register("shapelessbucket", ShapelessBucketRecipe.Serializer::new);
 

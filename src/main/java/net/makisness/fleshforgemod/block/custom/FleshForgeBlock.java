@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -34,9 +35,11 @@ public class FleshForgeBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final MapCodec<FleshForgeBlock> CODEC = simpleCodec(FleshForgeBlock::new);
     public static final VoxelShape SHAPE = Block.box(0,0,0,16,16,16);
+    public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
     public FleshForgeBlock(Properties properties) {
         super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(ACTIVE, false));
     }
 
     @Override
@@ -66,7 +69,7 @@ public class FleshForgeBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
+        builder.add(FACING,ACTIVE);
     }
 
     @Override

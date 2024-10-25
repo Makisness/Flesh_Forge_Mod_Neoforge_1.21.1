@@ -1,9 +1,10 @@
-// 1.21.1	2024-10-16T11:59:02.3096244	Item Models: fleshforgemod
+// 1.21.1	2024-10-25T11:27:34.9988852	Item Models: fleshforgemod
 06e2505f62f34026c6ca6a14580d4cd2aea93549 assets/fleshforgemod/models/item/aluminum_ingot.json
 a4e2583bf6bf292002ce186f73e5dce987e1e745 assets/fleshforgemod/models/item/bio_cpu.json
 aeedbeffa25d0f0538eb90a3b616a51042b0fc09 assets/fleshforgemod/models/item/bucket_flesh.json
 5a1958bb86b35e8b2b567749f4ca387c455d90bf assets/fleshforgemod/models/item/bucket_gelatin.json
 0c59f50b2aee9c1c4443d252ad800ce7d59c7340 assets/fleshforgemod/models/item/flesh_mass.json
+cea284161f00bd0ffac2dcf0585a911339e78f8b assets/fleshforgemod/models/item/fresh_flesh.json
 6ca1b78ea03dbf3469454f0cd89404adcdc0f491 assets/fleshforgemod/models/item/muscle_fibers.json
 131043269f029264b0924670f9fd9a9770f8854b assets/fleshforgemod/models/item/raw_bauxite.json
 9199807acf004f0a34b310d1763d0bb64615ced3 assets/fleshforgemod/models/item/round_knife.json

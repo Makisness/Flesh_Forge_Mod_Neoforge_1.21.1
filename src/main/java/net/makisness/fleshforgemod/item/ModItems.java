@@ -1,6 +1,7 @@
 package net.makisness.fleshforgemod.item;
 
 import net.makisness.fleshforgemod.fleshforgemod;
+import net.makisness.fleshforgemod.item.custom.Flesh;
 import net.makisness.fleshforgemod.item.custom.roundKnife;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
@@ -36,6 +37,9 @@ public class ModItems {
     public static final DeferredItem<Item> MUSCLE_FIBERS = ITEMS.register("muscle_fibers",
             () -> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> FRESH_FLESH = ITEMS.register("fresh_flesh",
+            () -> new Flesh(new Item.Properties().stacksTo(1)));
+
 
     //Fluids
     public static final DeferredItem<Item> BUCKET_FLESH = ITEMS.register("bucket_flesh",
@@ -43,10 +47,6 @@ public class ModItems {
 
     public static final DeferredItem<Item> BUCKET_GELATIN = ITEMS.register("bucket_gelatin",
             () -> new BucketItem(Fluids.WATER, (new Item.Properties()).craftRemainder(Items.BUCKET).stacksTo(1)));
-
-
-
-
 
 
 

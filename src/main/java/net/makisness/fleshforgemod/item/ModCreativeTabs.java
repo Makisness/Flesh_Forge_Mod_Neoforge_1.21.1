@@ -27,6 +27,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.BUCKET_GELATIN);
                         output.accept(ModItems.ROUND_KNIFE);
                         output.accept(ModItems.MUSCLE_FIBERS);
+                        output.accept(ModItems.FRESH_FLESH);
 
                     }).build());
 

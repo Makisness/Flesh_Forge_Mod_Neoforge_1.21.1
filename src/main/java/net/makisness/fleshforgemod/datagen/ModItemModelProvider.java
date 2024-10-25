@@ -21,6 +21,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.ROUND_KNIFE.get());
         basicItem(ModItems.ALUMINUM_INGOT.get());
         basicItem(ModItems.MUSCLE_FIBERS.get());
+        basicItem(ModItems.FRESH_FLESH.get());
 
 
     }

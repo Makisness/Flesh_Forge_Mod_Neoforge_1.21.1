@@ -1,5 +1,6 @@
 package net.makisness.fleshforgemod.block.entity.custom;
 
+import net.makisness.fleshforgemod.block.custom.FleshForgeBlock;
 import net.makisness.fleshforgemod.block.entity.ModBlockEntities;
 import net.makisness.fleshforgemod.component.ModDataComponentTypes;
 import net.makisness.fleshforgemod.fleshforgemod;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.capabilities.BlockCapability;
@@ -197,16 +199,20 @@ public class FleshForgeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     public void tick(Level level, BlockPos pos, BlockState state){
-        if(hasRecipe() && isOutputSlotEmptyOrReceivable()&& hasEnergy()){
+        if(hasRecipe() && isOutputSlotEmptyOrReceivable() && hasEnergy()){
+
+            level.setBlock(pos, state.setValue(FleshForgeBlock.ACTIVE, true), 3);
             increaseCraftingProgress();
             depletePower();
             setChanged(level,pos,state);
             if(hasCraftingFinished()){
                 craftItem();
                 resetProgress();
+                level.setBlock(pos, state.setValue(FleshForgeBlock.ACTIVE, false), 3);
             }
         } else {
             resetProgress();
+            level.setBlock(pos, state.setValue(FleshForgeBlock.ACTIVE, false), 3);
         }
     }
 
@@ -341,5 +347,10 @@ public class FleshForgeBlockEntity extends BlockEntity implements MenuProvider {
     public ItemStackHandler getItems(){
         return itemHandler;
     }
+
+    public IItemHandler getItemHandler(){
+        return itemHandler;
+    }
+
 }
 

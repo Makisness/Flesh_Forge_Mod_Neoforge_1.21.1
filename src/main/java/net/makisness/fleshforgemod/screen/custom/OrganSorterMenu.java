@@ -22,11 +22,17 @@ public class OrganSorterMenu extends AbstractContainerMenu {
 
     public OrganSorterMenu(int containerId, Inventory inv, Player player, BlockPos pos) {
         super(ModMenuTypes.ORGAN_SORTER_MENU.get(), containerId);
-        this.level = inv.player.level();
-        this.blockEntity = (OrganSorterBlockEntity) player.level().getBlockEntity(pos);
+        this.level = inv.player.level();  // Use player's level to ensure we're interacting in the correct dimension
 
+        // Retrieve the BlockEntity at the specified position
+        this.blockEntity = (OrganSorterBlockEntity) level.getBlockEntity(pos);
 
-        assert this.blockEntity != null;
+        // Ensure that the block entity exists and is of the expected type
+        if (this.blockEntity == null) {
+            throw new IllegalStateException("No valid OrganSorterBlockEntity found at position: " + pos);
+        }
+
+        // Retrieve and initialize the data container
         this.data = this.blockEntity.getData();
 
         addPlayerInventory(inv);
@@ -132,15 +138,10 @@ public class OrganSorterMenu extends AbstractContainerMenu {
         return  maxProgress != 0 && progress !=0 ? progress * arrowPixelSize / maxProgress : 0;
     }
 
-    public int getScaledCrystalProgress() {
-        int progress = this.data.get(0);
-        int maxProgress = this.data.get(1);
-        int crystalPixelSize = 16;
-
-        return  maxProgress != 0 && progress !=0 ? progress * crystalPixelSize / maxProgress : 0;
-
+    @Override
+    public boolean isValidSlotIndex(int slotIndex) {
+        return super.isValidSlotIndex(slotIndex);
     }
-
 }
 
 
